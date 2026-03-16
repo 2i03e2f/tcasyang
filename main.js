@@ -1002,13 +1002,17 @@ function openResultModal(p) {
     : `<span style="font-size:22px">🏫</span>`;
 
   const uniId = p.university_id || '';
-  // หา campus name จาก universities_data.json โดยใช้ location
+  // lookup campus name จาก universities_data.json
   let campusName = '';
-  const campusUniMatch = allU.find(u => u.university_id === uniId);
-  if (campusUniMatch) {
-    const campusMatch = campusUniMatch.campuses.find(c => c.location === p.campus_name_th);
-    if (campusMatch) {
-      campusName = campusMatch.name;
+  if (allU && allU.length > 0) {
+    const uni = allU.find(u => u.university_id === uniId);
+    if (uni && uni.campuses) {
+      // match by name ก่อน, ถ้าไม่ได้ match by location, ถ้ายังไม่ได้ใช้ campus แรก
+      const campus =
+        uni.campuses.find(c => c.name === p.campus_name_th) ||
+        uni.campuses.find(c => c.location === p.campus_name_th) ||
+        uni.campuses[0];
+      if (campus) campusName = campus.name;
     }
   }
   const imageSrc = campusName ? `views/${uniId}_${campusName}.jpg` : `views/${uniId}.jpg`;
