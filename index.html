@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TCASYang</title>
+  <meta property="og:image" content="https://media.discordapp.net/attachments/1427688368640229607/1483007428516647064/MyTCAL.png?ex=69b905cb&is=69b7b44b&hm=933c29ddc5027b985ec746da15409296bb24cd32216b68407fd0d1ffdbd98cda&=&format=webp&quality=lossless" />
+  <meta property="og:title" content="TCASYang" />
+  <meta property="og:description" content="ระบบคำนวณเข้ามหาวิทยาลัย TCAS69" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&family=Prompt:wght@600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/x-icon" href="tcal.ico">
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+<canvas id="particle-canvas"></canvas>
+
+<!-- ===== NAV ===== -->
+<div class="nav-wrapper">
+<nav>
+  <div class="logo" onclick="go('home')" style="cursor:pointer;display:flex;align-items:center;gap:8px">
+    <img src="tcal.png" alt="" style="height:26px;width:auto;object-fit:contain">
+    <span class="logo-text">
+      <span class="logo-letter">T</span><span class="logo-letter">C</span><span class="logo-letter">A</span><span class="logo-letter">S</span><span class="logo-letter">ยั</span><span class="logo-letter">ง</span>
+    </span>
+  </div>
+  <a onclick="go('home')" class="active">หน้าแรก</a>
+  <a onclick="go('rounds')">รอบรับ & การสอบ</a>
+  <a onclick="go('calc')">คำนวณ</a>
+  <a onclick="go('unis')">มหาวิทยาลัย</a>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="เมนู">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+</div>
+
+<!-- Mobile dropdown menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a onclick="go('home');closeMenu()" class="active">หน้าแรก</a>
+  <a onclick="go('rounds');closeMenu()">รอบรับ & การสอบ</a>
+  <a onclick="go('calc');closeMenu()">คำนวณ</a>
+  <a onclick="go('unis');closeMenu()">มหาวิทยาลัย</a>
+</div>
+
+<!-- ===== HOME ===== -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="badge"><div class="badge-dot"></div>ปีการศึกษา 2569</div>
+    <h1>ระบบคำนวณ<br/><span class="hl">เข้ามหาวิทยาลัย</span><br/>TCAS69</h1>
+    <p class="hero-sub">วางแผนสมัคร คำนวณคะแนน และเช็คเกณฑ์คณะที่ใช่สำหรับคุณ</p>
+    <div class="cta">
+      <button class="btn-p" onclick="go('calc')">คำนวณคะแนน →</button>
+      <button class="btn-s" onclick="go('rounds')">ดูรอบรับสมัคร</button>
+    </div>
+  </div>
+
+  <div class="stats tilt-card">
+    <div class="scard"><div class="snum">80+</div><div class="slbl">มหาวิทยาลัย</div></div>
+    <div class="scard"><div class="snum">4</div><div class="slbl">รอบรับสมัคร</div></div>
+    <div class="scard"><div class="snum">2569</div><div class="slbl">ปีการศึกษา</div></div>
+  </div>
+</div>
+
+<!-- ===== ROUNDS + EXAMS ===== -->
+<div id="page-rounds" class="page">
+  <div class="sec" style="padding-top:40px">
+    <div class="sec-tag">รอบรับสมัคร</div>
+    <div class="sec-title">4 รอบ ปี 2569</div>
+    <div class="sec-sub">รอบที่เปิดในระบบ TCAS</div>
+    <div class="rounds">
+      <div class="rcard">
+        <div class="rnum">Round 01</div>
+        <div class="rname">Portfolio</div>
+        <div class="rdesc">ยื่น Portfolio ไม่มีการสอบ เน้นความสามารถพิเศษและผลงาน</div>
+        <div class="rdate">ธ.ค. 67 — ก.พ. 68</div>
+      </div>
+      <div class="rcard">
+        <div class="rnum">Round 02</div>
+        <div class="rname">Quota</div>
+        <div class="rdesc">โควตาพื้นที่ โรงเรียน และโครงการพิเศษต่างๆ</div>
+        <div class="rdate">ก.พ. — มี.ค. 68</div>
+      </div>
+      <div class="rcard">
+        <div class="rnum">Round 03</div>
+        <div class="rname">Admission</div>
+        <div class="rdesc">ใช้คะแนน TGAT TPAT A-Level GPAX ในการคัดเลือก</div>
+        <div class="rdate">เม.ย. — พ.ค. 68</div>
+      </div>
+      <div class="rcard">
+        <div class="rnum">Round 04</div>
+        <div class="rname">Direct Admission</div>
+        <div class="rdesc">รับตรงอิสระ มหาวิทยาลัยจัดการรับเอง</div>
+        <div class="rdate">พ.ค. — มิ.ย. 68</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-tag">การสอบ</div>
+    <div class="sec-title">ประเภทข้อสอบ TCAS69</div>
+    <div class="sec-sub">รู้จักการสอบแต่ละประเภทก่อนเตรียมตัว</div>
+    <div class="exams">
+      <div class="ecard" data-type="tgat">
+        <div class="ebadge">TGAT</div>
+        <div class="efull">Thai General Aptitude Test</div>
+        <div class="esubj">TGAT1 — การสื่อสารภาษาอังกฤษ</div>
+        <div class="esubj">TGAT2 — การคิดอย่างมีเหตุผล</div>
+        <div class="esubj">TGAT3 — สมรรถนะการทำงาน</div>
+      </div>
+      <div class="ecard" data-type="tpat">
+        <div class="ebadge">TPAT</div>
+        <div class="efull">Thai Professional Aptitude Test</div>
+        <div class="esubj">TPAT1 — วิชาเฉพาะแพทย์</div>
+        <div class="esubj">TPAT2 — วิชาเฉพาะศิลปะ</div>
+        <div class="esubj">TPAT3 — วิชาเฉพาะวิศวะ</div>
+        <div class="esubj">TPAT4 — วิชาเฉพาะครุศาสตร์</div>
+        <div class="esubj">TPAT5 — วิชาเฉพาะสถาปัตย์</div>
+      </div>
+      <div class="ecard" data-type="alevel">
+        <div class="ebadge">A-Level</div>
+        <div class="efull">Applied Knowledge Level</div>
+        <div class="esubj">61 คณิตศาสตร์ 1 / 62 คณิตศาสตร์ 2</div>
+        <div class="esubj">63 วิทยาศาสตร์ประยุกต์</div>
+        <div class="esubj">64 ฟิสิกส์ / 65 เคมี / 66 ชีววิทยา</div>
+        <div class="esubj">70 สังคมศึกษา</div>
+        <div class="esubj esubj-lang">
+          <span>81 ภาษาไทย และภาษาต่างประเทศ</span>
+          <button class="lang-btn" onclick="toggleLang(event)" title="ดูภาษาทั้งหมด">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </button>
+          <div class="lang-popup" id="lang-popup">
+            <div class="lang-item">81 ภาษาไทย</div>
+            <div class="lang-item">82 ภาษาอังกฤษ</div>
+            <div class="lang-item">83 ภาษาฝรั่งเศส</div>
+            <div class="lang-item">84 ภาษาเยอรมัน</div>
+            <div class="lang-item">85 ภาษาญี่ปุ่น</div>
+            <div class="lang-item">86 ภาษาเกาหลี</div>
+            <div class="lang-item">87 ภาษาจีน</div>
+            <div class="lang-item">88 ภาษาบาลี</div>
+            <div class="lang-item">89 ภาษาสเปน</div>
+          </div>
+        </div>
+      </div>
+      <div class="ecard" data-type="gpax">
+        <div class="ebadge">GPAX</div>
+        <div class="efull">Grade Point Average</div>
+        <div class="esubj">เกรดเฉลี่ยสะสมตลอดหลักสูตร</div>
+        <div class="esubj">คิดจาก ม.4 ถึง ม.6 / คะแนนเต็ม 4.00</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CALC ===== -->
+<div id="page-calc" class="page">
+  <div class="sec" style="padding-top:40px;max-width:1200px">
+    <div class="sec-tag">คะแนน & เกณฑ์</div>
+    <div class="sec-title">คำนวณคะแนน</div>
+    <div class="sec-sub">เลือกโหมดที่ต้องการ</div>
+
+    <div class="calc-tabs">
+      <button class="ctab active" onclick="switchTab('manual', this)">คำนวณเปล่าๆ</button>
+      <button class="ctab"        onclick="switchTab('check',  this)">เช็คเกณฑ์คณะ</button>
+    </div>
+
+    <!-- TAB: คำนวณเปล่าๆ -->
+    <div id="tab-manual" class="calc-sub active">
+      <div class="calc-wrap">
+
+        <!-- คะแนน -->
+        <div class="ccard">
+          <div class="ccard-hd">
+            <div class="cicon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="bar-chart-2"></svg></div>
+            <div><div class="ctitle">คะแนนของคุณ</div><div class="csub-txt">กรอกเฉพาะวิชาที่มีคะแนน</div></div>
+          </div>
+          <div class="score-group">
+            <!-- GPAX -->
+            <div class="sg-label">GPAX</div>
+            <div class="sg-row">
+              <div class="sf"><div class="slabel"><span>GPAX</span><span id="lv-gpax">-</span></div><input type="number" class="sinput nospinner" id="s-gpax" min="0" max="4" step="0.01" placeholder="0.00–4.00" oninput="lbl('gpax',this.value);saveScores();renderWeights()"></div>
+            </div>
+            <!-- TGAT & TPAT -->
+            <div class="sg-label">TGAT & TPAT</div>
+            <div class="sg-row">
+              <div class="sf"><div class="slabel"><span>TGAT1</span><span id="lv-tgat1">-</span></div><input type="number" class="sinput nospinner" id="s-tgat1" min="0" max="100" placeholder="0–100" oninput="lbl('tgat1',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>TGAT2</span><span id="lv-tgat2">-</span></div><input type="number" class="sinput nospinner" id="s-tgat2" min="0" max="100" placeholder="0–100" oninput="lbl('tgat2',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>TGAT3</span><span id="lv-tgat3">-</span></div><input type="number" class="sinput nospinner" id="s-tgat3" min="0" max="100" placeholder="0–100" oninput="lbl('tgat3',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>TPAT1</span><span id="lv-tpat1">-</span></div><input type="number" class="sinput nospinner" id="s-tpat1" min="0" max="100" placeholder="0–100" oninput="lbl('tpat1',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>TPAT2</span><span id="lv-tpat2">-</span></div><input type="number" class="sinput nospinner" id="s-tpat2" min="0" max="100" placeholder="0–100" oninput="lbl('tpat2',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>TPAT3</span><span id="lv-tpat3">-</span></div><input type="number" class="sinput nospinner" id="s-tpat3" min="0" max="100" placeholder="0–100" oninput="lbl('tpat3',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>TPAT4</span><span id="lv-tpat4">-</span></div><input type="number" class="sinput nospinner" id="s-tpat4" min="0" max="100" placeholder="0–100" oninput="lbl('tpat4',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>TPAT5</span><span id="lv-tpat5">-</span></div><input type="number" class="sinput nospinner" id="s-tpat5" min="0" max="100" placeholder="0–100" oninput="lbl('tpat5',this.value);saveScores();renderWeights()"></div>
+            </div>
+            <!-- A-Level -->
+            <div class="sg-label">A-Level</div>
+            <div class="sg-row">
+              <div class="sf"><div class="slabel"><span>61 คณิตฯ 1</span><span id="lv-al61">-</span></div><input type="number" class="sinput nospinner" id="s-al61" min="0" max="100" placeholder="0–100" oninput="lbl('al61',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>62 คณิตฯ 2</span><span id="lv-al62">-</span></div><input type="number" class="sinput nospinner" id="s-al62" min="0" max="100" placeholder="0–100" oninput="lbl('al62',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>63 วิทย์ประยุกต์</span><span id="lv-al63">-</span></div><input type="number" class="sinput nospinner" id="s-al63" min="0" max="100" placeholder="0–100" oninput="lbl('al63',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>64 ฟิสิกส์</span><span id="lv-al64">-</span></div><input type="number" class="sinput nospinner" id="s-al64" min="0" max="100" placeholder="0–100" oninput="lbl('al64',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>65 เคมี</span><span id="lv-al65">-</span></div><input type="number" class="sinput nospinner" id="s-al65" min="0" max="100" placeholder="0–100" oninput="lbl('al65',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>66 ชีววิทยา</span><span id="lv-al66">-</span></div><input type="number" class="sinput nospinner" id="s-al66" min="0" max="100" placeholder="0–100" oninput="lbl('al66',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>70 สังคมศึกษา</span><span id="lv-al70">-</span></div><input type="number" class="sinput nospinner" id="s-al70" min="0" max="100" placeholder="0–100" oninput="lbl('al70',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>81 ภาษาไทย</span><span id="lv-al81">-</span></div><input type="number" class="sinput nospinner" id="s-al81" min="0" max="100" placeholder="0–100" oninput="lbl('al81',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>82 ภาษาอังกฤษ</span><span id="lv-al82">-</span></div><input type="number" class="sinput nospinner" id="s-al82" min="0" max="100" placeholder="0–100" oninput="lbl('al82',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>83 ภาษาฝรั่งเศส</span><span id="lv-al83">-</span></div><input type="number" class="sinput nospinner" id="s-al83" min="0" max="100" placeholder="0–100" oninput="lbl('al83',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>84 ภาษาเยอรมัน</span><span id="lv-al84">-</span></div><input type="number" class="sinput nospinner" id="s-al84" min="0" max="100" placeholder="0–100" oninput="lbl('al84',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>85 ภาษาญี่ปุ่น</span><span id="lv-al85">-</span></div><input type="number" class="sinput nospinner" id="s-al85" min="0" max="100" placeholder="0–100" oninput="lbl('al85',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>86 ภาษาเกาหลี</span><span id="lv-al86">-</span></div><input type="number" class="sinput nospinner" id="s-al86" min="0" max="100" placeholder="0–100" oninput="lbl('al86',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>87 ภาษาจีน</span><span id="lv-al87">-</span></div><input type="number" class="sinput nospinner" id="s-al87" min="0" max="100" placeholder="0–100" oninput="lbl('al87',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>88 ภาษาบาลี</span><span id="lv-al88">-</span></div><input type="number" class="sinput nospinner" id="s-al88" min="0" max="100" placeholder="0–100" oninput="lbl('al88',this.value);saveScores();renderWeights()"></div>
+              <div class="sf"><div class="slabel"><span>89 ภาษาสเปน</span><span id="lv-al89">-</span></div><input type="number" class="sinput nospinner" id="s-al89" min="0" max="100" placeholder="0–100" oninput="lbl('al89',this.value);saveScores();renderWeights()"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- น้ำหนักคะแนน + ปุ่ม + แสดงผล -->
+        <div class="ccard" style="display:flex;flex-direction:column;">
+          <div class="ccard-hd">
+            <div class="cicon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="scale"></svg></div>
+            <div><div class="ctitle">น้ำหนักคะแนน (%)</div><div class="csub-txt">รวมต้องได้ 100%</div></div>
+          </div>
+          <div class="quick-pct-bar" id="quick-btns"></div>
+          <div id="weight-rows">
+            <div class="w-empty">กรุณากรอกคะแนนก่อน</div>
+          </div>
+          <div class="wtotal ok" id="wtrow"><span>รวมน้ำหนัก</span><span id="wtotal">0%</span></div>
+          <button class="calc-btn" onclick="calc()">คำนวณ →</button>
+
+          <!-- ผลลัพธ์อยู่ใน card ขวา -->
+          <div class="result" id="result" style="margin-top:10px;">
+            <div class="result-hd">
+              <div style="font-size:11px;color:var(--muted);margin-bottom:6px">คะแนนรวมของคุณ</div>
+              <div class="result-big" id="rbig">0.00</div>
+              <div class="result-lbl">คะแนนเต็ม 100</div>
+            </div>
+            <div class="breakdown" id="rbreak"></div>
+            <div id="rbars"></div>
+            <div class="result-note" id="rnote"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- TAB: เช็คเกณฑ์ -->
+    <div id="tab-check" class="calc-sub">
+      <button class="import-btn" id="import-btn" onclick="importScores()"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="download"></svg> ดึงคะแนนจากหน้าคำนวณเปล่าๆ</button>
+
+      <div class="check-layout">
+        <!-- ===== ซ้าย: input ===== -->
+        <div class="check-left">
+          <!-- เลือกโหมด -->
+          <div class="ccard" style="margin-bottom:10px">
+            <div class="ccard-hd">
+              <div class="cicon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="target"></svg></div>
+              <div><div class="ctitle">โหมดการค้นหา</div><div class="csub-txt">เลือกวิธีที่ต้องการ</div></div>
+            </div>
+            <div class="sd-wrap" id="sd-mode-wrap" style="width:100%"></div>
+            <input type="hidden" id="check-mode" value="1">
+            <div id="check-filters" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px"></div>
+          </div>
+
+          <!-- กรอกคะแนน (ซ่อนในโหมด 6) -->
+          <div class="ccard" id="check-score-card" style="margin-bottom:10px">
+            <div class="ccard-hd">
+              <div class="cicon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="clipboard-list"></svg></div>
+              <div><div class="ctitle">ใส่คะแนนเพื่อเช็คเกณฑ์</div><div class="csub-txt">วิชาไหนไม่มีคะแนนให้เว้นว่าง</div></div>
+            </div>
+            <div class="ck-score-wrap">
+              <!-- GPAX -->
+              <div class="ck-score-section">
+                <div class="score-col-label">GPAX</div>
+                <div class="ck-score-row">
+                  <div class="sf"><div class="slabel"><span>GPAX</span></div><input type="number" class="sinput nospinner" id="c-gpax" min="0" max="4" step="0.01" placeholder="0.00–4.00"></div>
+                </div>
+              </div>
+              <!-- TGAT & TPAT -->
+              <div class="ck-score-section">
+                <div class="score-col-label">TGAT & TPAT</div>
+                <div class="ck-score-row">
+                  <div class="sf"><div class="slabel"><span>TGAT1</span></div><input type="number" class="sinput nospinner" id="c-tgat1" min="0" max="100" placeholder="0–100"></div>
+                  <div class="sf"><div class="slabel"><span>TGAT2</span></div><input type="number" class="sinput nospinner" id="c-tgat2" min="0" max="100" placeholder="0–100"></div>
+                  <div class="sf"><div class="slabel"><span>TGAT3</span></div><input type="number" class="sinput nospinner" id="c-tgat3" min="0" max="100" placeholder="0–100"></div>
+                </div>
+                <div class="ck-score-row">
+                  <div class="sf"><div class="slabel"><span>TPAT1</span></div><input type="number" class="sinput nospinner" id="c-tpat1" min="0" max="100" placeholder="0–100"></div>
+                  <div class="sf"><div class="slabel"><span>TPAT2</span></div><input type="number" class="sinput nospinner" id="c-tpat2" min="0" max="100" placeholder="0–100"></div>
+                  <div class="sf"><div class="slabel"><span>TPAT3</span></div><input type="number" class="sinput nospinner" id="c-tpat3" min="0" max="100" placeholder="0–100"></div>
+                </div>
+                <div class="ck-score-row">
+                  <div class="sf"><div class="slabel"><span>TPAT4</span></div><input type="number" class="sinput nospinner" id="c-tpat4" min="0" max="100" placeholder="0–100"></div>
+                  <div class="sf"><div class="slabel"><span>TPAT5</span></div><input type="number" class="sinput nospinner" id="c-tpat5" min="0" max="100" placeholder="0–100"></div>
+                  <div class="sf" style="visibility:hidden"></div>
+                </div>
+              </div>
+              <!-- A-Level -->
+              <div class="ck-score-section">
+                <div class="score-col-label">A-Level</div>
+                <div class="ck-score-row">
+                  <div class="sf"><div class="slabel"><span>61 คณิตฯ 1</span></div><input type="number" class="sinput nospinner" id="c-al61" min="0" max="100" placeholder="0–100"></div>
+                  <div class="sf"><div class="slabel"><span>62 คณิตฯ 2</span></div><input type="number" class="sinput nospinner" id="c-al62" min="0" max="100" placeholder="0–100"></div>
+                  <div class="sf"><div class="slabel"><span>63 วิทย์ประยุกต์</span></div><input type="number" class="sinput nospinner" id="c-al63" min="0" max="100" placeholder="0–100"></div>
+                </div>
+                <div class="ck-score-row">
+                  <div class="sf"><div class="slabel"><span>64 ฟิสิกส์</span></div><input type="number" class="sinput nospinner" id="c-al64" min="0" max="100" placeholder="0–100"></div>
+                  <div class="sf"><div class="slabel"><span>65 เคมี</span></div><input type="number" class="sinput nospinner" id="c-al65" min="0" max="100" placeholder="0–100"></div>
+                  <div class="sf"><div class="slabel"><span>66 ชีววิทยา</span></div><input type="number" class="sinput nospinner" id="c-al66" min="0" max="100" placeholder="0–100"></div>
+                </div>
+                <div class="ck-score-row">
+                  <div class="sf"><div class="slabel"><span>70 สังคม</span></div><input type="number" class="sinput nospinner" id="c-al70" min="0" max="100" placeholder="0–100"></div>
+                  <div class="sf"><div class="slabel"><span>81 ภาษาไทย</span></div><input type="number" class="sinput nospinner" id="c-al81" min="0" max="100" placeholder="0–100"></div>
+                  <div class="sf"><div class="slabel"><span>82 ภาษาอังกฤษ</span></div><input type="number" class="sinput nospinner" id="c-al82" min="0" max="100" placeholder="0–100"></div>
+                </div>
+                <div class="ck-score-row">
+                  <div class="sf"><div class="slabel"><span>83 ภาษาฝรั่งเศส</span></div><input type="number" class="sinput nospinner" id="c-al83" min="0" max="100" placeholder="0–100"></div>
+                  <div class="sf"><div class="slabel"><span>84 ภาษาเยอรมัน</span></div><input type="number" class="sinput nospinner" id="c-al84" min="0" max="100" placeholder="0–100"></div>
+                  <div class="sf"><div class="slabel"><span>85 ภาษาญี่ปุ่น</span></div><input type="number" class="sinput nospinner" id="c-al85" min="0" max="100" placeholder="0–100"></div>
+                </div>
+                <div class="ck-score-row">
+                  <div class="sf"><div class="slabel"><span>86 ภาษาเกาหลี</span></div><input type="number" class="sinput nospinner" id="c-al86" min="0" max="100" placeholder="0–100"></div>
+                  <div class="sf"><div class="slabel"><span>87 ภาษาจีน</span></div><input type="number" class="sinput nospinner" id="c-al87" min="0" max="100" placeholder="0–100"></div>
+                  <div class="sf"><div class="slabel"><span>88 ภาษาบาลี</span></div><input type="number" class="sinput nospinner" id="c-al88" min="0" max="100" placeholder="0–100"></div>
+                </div>
+                <div class="ck-score-row">
+                  <div class="sf"><div class="slabel"><span>89 ภาษาสเปน</span></div><input type="number" class="sinput nospinner" id="c-al89" min="0" max="100" placeholder="0–100"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- โหมด 6: เลือกวิชาที่มี -->
+          <div class="ccard" id="check-subject-card" style="display:none;margin-bottom:10px">
+            <div class="ccard-hd">
+              <div class="cicon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="file-text"></svg></div>
+              <div><div class="ctitle">เลือกวิชาที่มีคะแนน</div><div class="csub-txt">ติ๊กวิชาที่มี ระบบจะหาคณะที่ตรงเกณฑ์</div></div>
+            </div>
+            <!-- GPAX -->
+            <div class="ck-group-label">GPAX</div>
+            <div class="ck-group">
+              <label class="chk-item"><input type="checkbox" id="ck-gpax"> GPAX</label>
+            </div>
+            <!-- TGAT -->
+            <div class="ck-group-label">TGAT</div>
+            <div class="ck-group">
+              <label class="chk-item"><input type="checkbox" id="ck-tgat1"> TGAT1</label>
+              <label class="chk-item"><input type="checkbox" id="ck-tgat2"> TGAT2</label>
+              <label class="chk-item"><input type="checkbox" id="ck-tgat3"> TGAT3</label>
+            </div>
+            <!-- TPAT -->
+            <div class="ck-group-label">TPAT</div>
+            <div class="ck-group">
+              <label class="chk-item"><input type="checkbox" id="ck-tpat1"> TPAT1</label>
+              <label class="chk-item"><input type="checkbox" id="ck-tpat2"> TPAT2</label>
+              <label class="chk-item"><input type="checkbox" id="ck-tpat3"> TPAT3</label>
+              <label class="chk-item"><input type="checkbox" id="ck-tpat4"> TPAT4</label>
+              <label class="chk-item"><input type="checkbox" id="ck-tpat5"> TPAT5</label>
+            </div>
+            <!-- A-Level วิทยาศาสตร์ -->
+            <div class="ck-group-label">A-Level วิทยาศาสตร์/คณิต</div>
+            <div class="ck-group">
+              <label class="chk-item"><input type="checkbox" id="ck-al61"> 61 คณิตฯ 1</label>
+              <label class="chk-item"><input type="checkbox" id="ck-al62"> 62 คณิตฯ 2</label>
+              <label class="chk-item"><input type="checkbox" id="ck-al63"> 63 วิทย์ประยุกต์</label>
+              <label class="chk-item"><input type="checkbox" id="ck-al64"> 64 ฟิสิกส์</label>
+              <label class="chk-item"><input type="checkbox" id="ck-al65"> 65 เคมี</label>
+              <label class="chk-item"><input type="checkbox" id="ck-al66"> 66 ชีววิทยา</label>
+              <label class="chk-item"><input type="checkbox" id="ck-al70"> 70 สังคม</label>
+            </div>
+            <!-- A-Level ภาษา -->
+            <div class="ck-group-label">A-Level ภาษา</div>
+            <div class="ck-group">
+              <label class="chk-item"><input type="checkbox" id="ck-al81"> 81 ภาษาไทย</label>
+              <label class="chk-item"><input type="checkbox" id="ck-al82"> 82 ภาษาอังกฤษ</label>
+              <label class="chk-item"><input type="checkbox" id="ck-al83"> 83 ภาษาฝรั่งเศส</label>
+              <label class="chk-item"><input type="checkbox" id="ck-al84"> 84 ภาษาเยอรมัน</label>
+              <label class="chk-item"><input type="checkbox" id="ck-al85"> 85 ภาษาญี่ปุ่น</label>
+              <label class="chk-item"><input type="checkbox" id="ck-al86"> 86 ภาษาเกาหลี</label>
+              <label class="chk-item"><input type="checkbox" id="ck-al87"> 87 ภาษาจีน</label>
+              <label class="chk-item"><input type="checkbox" id="ck-al88"> 88 ภาษาบาลี</label>
+              <label class="chk-item"><input type="checkbox" id="ck-al89"> 89 ภาษาสเปน</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== ขวา: output filters + ผลลัพธ์ ===== -->
+        <div class="check-right">
+          <button class="calc-btn" onclick="checkCriteria()" style="margin-bottom:10px">เช็คเกณฑ์ →</button>
+          <div id="output-filters" style="display:none;margin-bottom:10px">
+            <div class="ccard" style="padding:12px">
+              <!-- status toggle -->
+              <div style="margin-bottom:8px">
+                <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">สถานะ</div>
+                <div class="toggle-group" id="of-status-group">
+                  <button class="tgl-btn active" data-val="" onclick="setToggle('of-status-group',this,'');applyFilters()">ทั้งหมด</button>
+                  <button class="tgl-btn" data-val="pass" onclick="setToggle('of-status-group',this,'pass');applyFilters()">✓ ผ่านเกณฑ์</button>
+                  <button class="tgl-btn" data-val="fail" onclick="setToggle('of-status-group',this,'fail');applyFilters()">✕ ไม่ผ่าน</button>
+                </div>
+                <input type="hidden" id="of-status" value="">
+              </div>
+              <!-- changed toggle -->
+              <div style="margin-bottom:10px">
+                <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">เกณฑ์</div>
+                <div class="toggle-group" id="of-changed-group">
+                  <button class="tgl-btn active" data-val="" onclick="setToggle('of-changed-group',this,'');applyFilters()">ทั้งหมด</button>
+                  <button class="tgl-btn" data-val="changed" onclick="setToggle('of-changed-group',this,'changed');applyFilters()">⚠ เปลี่ยน</button>
+                  <button class="tgl-btn" data-val="same" onclick="setToggle('of-changed-group',this,'same');applyFilters()">เหมือนเดิม</button>
+                </div>
+                <input type="hidden" id="of-changed" value="">
+              </div>
+              <!-- searchable dropdowns -->
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+                <div class="sd-wrap" id="sd-type"   data-filter="of-type"   data-default="— ทุกประเภท —"></div>
+                <div class="sd-wrap" id="sd-campus" data-filter="of-campus" data-default="— ทุกวิทยาเขต —"></div>
+                <div class="sd-wrap" id="sd-fac"    data-filter="of-fac"    data-default="— ทุกคณะ —"></div>
+                <input type="hidden" id="of-type">
+                <input type="hidden" id="of-campus">
+                <input type="hidden" id="of-fac">
+              </div>
+              <div id="of-summary" style="font-size:11px;color:var(--muted)"></div>
+            </div>
+          </div>
+
+          <div id="page-bar-top" style="display:none;justify-content:center;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:12px"></div>
+          <div id="check-results"></div>
+          <div id="page-bar" style="display:none;justify-content:center;align-items:center;gap:6px;flex-wrap:wrap;margin-top:16px"></div>
+        </div>
+      </div>
+
+<!-- ===== RESULT DETAIL MODAL ===== -->
+<div class="modal-overlay" id="result-modal-overlay" onclick="closeResultModal(event)">
+  <div class="modal" id="result-modal">
+    <button class="modal-close" onclick="closeResultModalDirect()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="x"></svg></button>
+    <div class="modal-body">
+      <div id="result-modal-cover"></div>
+      <div class="modal-logo-row">
+        <div class="modal-logo" id="rm-logo"></div>
+        <div style="flex:1;min-width:0">
+          <div class="modal-uni-name" id="rm-uni"></div>
+          <div style="font-size:12px;color:var(--muted2);margin-top:2px" id="rm-fac"></div>
+          <div style="font-size:11px;color:var(--muted)" id="rm-prog"></div>
+          <div style="font-size:11px;color:var(--muted2);margin-top:3px;font-style:italic" id="rm-project"></div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px" id="rm-tags"></div>
+        </div>
+      </div>
+
+      <!-- 3 stats: คะแนน โอกาส รับ -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px">
+        <div style="background:var(--bg2);border-radius:8px;padding:10px;text-align:center">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">คะแนนที่ได้</div>
+          <div id="rm-score" style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800"></div>
+          <div id="rm-score-breakdown" style="font-size:9px;color:var(--muted);margin-top:3px"></div>
+        </div>
+        <div style="background:var(--bg2);border-radius:8px;padding:10px;text-align:center">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">โอกาสเข้า</div>
+          <div id="rm-chance" style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--green)"></div>
+          <div style="font-size:9px;color:var(--muted);margin-top:3px">เทียบปี 68</div>
+        </div>
+        <div style="background:var(--bg2);border-radius:8px;padding:10px;text-align:center">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">รับนักศึกษา</div>
+          <div id="rm-seats" style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800"></div>
+          <div style="font-size:9px;color:var(--muted);margin-top:3px">คน</div>
+        </div>
+      </div>
+
+      <!-- ค่าเทอม -->
+      <div style="background:var(--bg2);border-radius:8px;padding:10px 12px;margin-bottom:12px">
+        <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">ค่าเทอม</div>
+        <div id="rm-cost" style="font-size:12px;color:var(--muted2);line-height:1.6"></div>
+      </div>
+
+      <!-- เกณฑ์ปีนี้ -->
+      <div style="margin-bottom:12px">
+        <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">เกณฑ์ปี 2569</div>
+        <div id="rm-criteria" style="font-size:12px;color:var(--muted2);line-height:1.8"></div>
+      </div>
+
+      <!-- เกณฑ์ปีก่อน -->
+      <div style="margin-bottom:14px">
+        <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">เกณฑ์ปีที่แล้ว (2568)</div>
+        <div id="rm-ly-criteria" style="font-size:12px;color:var(--muted2);line-height:1.8"></div>
+        <div id="rm-ly-stats" style="margin-top:8px;font-size:12px;color:var(--muted2)"></div>
+        <div id="rm-warn" style="display:none;margin-top:8px;padding:8px 12px;background:rgba(232,168,32,0.1);border:1px solid rgba(232,168,32,0.3);border-radius:7px;font-size:12px;color:#e8a820">
+          ⚠️ เกณฑ์ปีนี้แตกต่างจากปีที่แล้ว โปรดตรวจสอบก่อนสมัคร
+        </div>
+      </div>
+
+      <!-- ปุ่ม -->
+      <div style="display:flex;gap:8px">
+        <a id="rm-mytcas-btn" href="#" target="_blank" class="rm-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="external-link"></svg> mytcas.com</a>
+        <a id="rm-uni-btn" href="#" target="_blank" class="rm-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="school"></svg> หน้ามหาวิทยาลัย</a>
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== UNIVERSITIES ===== -->
+<div id="page-unis" class="page">
+  <div class="sec" style="padding-top:40px">
+    <div class="sec-tag">มหาวิทยาลัย</div>
+    <div class="sec-title">สถาบันที่ร่วม TCAS</div>
+    <div class="sec-sub">กดชื่อมหาวิทยาลัยเพื่อดูข้อมูล</div>
+    <div class="search-wrap">
+      <input type="text" id="usearch" placeholder="ค้นหา..." oninput="filterU()">
+    </div>
+    <div class="u-count" id="ucount"></div>
+    <div id="ulist"><div style="color:var(--muted);padding:24px;font-size:13px">กำลังโหลด...</div></div>
+  </div>
+</div>
+
+<!-- ===== UNI MODAL ===== -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal uni-modal" id="modal">
+    <div class="campus-dropdown-wrap" id="campus-dropdown-wrap" style="display:none">
+      <input type="hidden" id="campus-modal-hidden">
+      <div class="sd-wrap" id="sd-campus-modal" style="width:100%;max-width:240px"></div>
+    </div>
+    <button class="modal-close" onclick="closeModalDirect()"><svg data-lucide="x" width="16" height="16"></svg></button>
+    <div class="uni-modal-inner">
+
+      <!-- sidebar วิทยาเขต (desktop) -->
+      <div class="campus-sidebar" id="campus-sidebar"></div>
+
+      <!-- content -->
+      <div class="modal-body" id="modal-body">
+        <div id="modal-cover"></div>
+        <div class="modal-logo-row">
+          <div class="modal-logo" id="modal-logo"></div>
+          <div>
+            <div class="modal-uni-name" id="modal-name"></div>
+            <div class="modal-uni-en"   id="modal-name-en"></div>
+          </div>
+        </div>
+        <div class="modal-tags" id="modal-tags"></div>
+        <div class="modal-info-grid" id="modal-info"></div>
+        <div class="modal-desc" id="modal-desc"></div>
+        <div class="modal-map" id="modal-map"></div>
+        <a class="modal-map-btn" id="modal-map-link" href="#" target="_blank">เปิดใน Google Maps →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>Made with ❤️ · ปีการศึกษา 2569 · Official Page: <a href="https://mytcas.com" target="_blank">mytcas.com</a></footer>
+
+<div id="toast" class="toast" aria-live="polite" role="status"></div>
+
+<script src="main.js"></script>
+</body>
+</html>
