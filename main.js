@@ -178,8 +178,7 @@ document.addEventListener('click', (e) => {
 // ===== THEME SWITCHING =====
 function setTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('tcasyang-theme', theme);
-  // update active state in grid
+  try { localStorage.setItem('tcasyang-theme', theme); } catch(e) {}
   document.querySelectorAll('.theme-option').forEach(el => {
     el.classList.toggle('active', el.dataset.theme === theme);
   });
@@ -187,14 +186,20 @@ function setTheme(theme) {
 
 // load saved theme on startup
 (function initTheme() {
-  const saved = localStorage.getItem('tcasyang-theme') || 'dark';
+  let saved = 'dark';
+  try { saved = localStorage.getItem('tcasyang-theme') || 'dark'; } catch(e) {}
   document.documentElement.setAttribute('data-theme', saved);
   // sync active button after DOM ready
-  document.addEventListener('DOMContentLoaded', () => {
+  const syncBtns = () => {
     document.querySelectorAll('.theme-option').forEach(el => {
       el.classList.toggle('active', el.dataset.theme === saved);
     });
-  });
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', syncBtns);
+  } else {
+    syncBtns();
+  }
 })();
 
 // ===== TOGGLE GROUP =====

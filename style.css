@@ -13,6 +13,11 @@
   --green:    #3ddc84;
   --red:      #e05555;
   --gold:     #e8a820;
+  --hl:       rgba(255, 255, 255, 0.06);
+  --hl2:      rgba(255, 255, 255, 0.10);
+  --nav-bg:   rgba(14, 14, 18, 0.75);
+  --panel-bg: rgba(14, 14, 18, 0.97);
+  --shadow:   rgba(0,0,0,0.5);
 }
 
 /* ===== RESET ===== */
@@ -55,12 +60,12 @@ nav {
   gap:             4px;
   padding:         0 6px 0 16px;
   height:          52px;
-  background:      rgba(14, 14, 18, 0.75);
+  background:      var(--nav-bg);
   backdrop-filter: blur(24px) saturate(1.8);
   -webkit-backdrop-filter: blur(24px) saturate(1.8);
-  border:          1px solid rgba(255,255,255,0.09);
+  border:          1px solid var(--border);
   border-radius:   16px;
-  box-shadow:      0 4px 32px rgba(0,0,0,0.5);
+  box-shadow:      0 4px 32px var(--shadow);
   width:           100%;
   max-width:       860px;
 }
@@ -99,11 +104,11 @@ nav {
   top:             80px;
   left:            20px; right: 20px;
   z-index:         199;
-  background:      rgba(14, 14, 18, 0.97);
+  background:      var(--panel-bg);
   backdrop-filter: blur(20px);
-  border:          1px solid rgba(255,255,255,0.09);
+  border:          1px solid var(--border);
   border-radius:   14px;
-  box-shadow:      0 8px 32px rgba(0,0,0,0.5);
+  box-shadow:      0 8px 32px var(--shadow);
   display:         flex;
   flex-direction:  column;
   padding:         8px;
@@ -130,8 +135,8 @@ nav {
   cursor:        pointer;
   transition:    all 0.15s;
 }
-.mobile-menu a:hover  { color: var(--muted2); background: rgba(255,255,255,0.04); }
-.mobile-menu a.active { color: var(--text); background: rgba(255,255,255,0.06); }
+.mobile-menu a:hover  { color: var(--muted2); background: var(--hl); }
+.mobile-menu a.active { color: var(--text); background: var(--hl2); }
 
 /* ===== SETTINGS BUTTON ===== */
 .settings-btn {
@@ -149,21 +154,22 @@ nav {
   flex-shrink:   0;
   margin-left:   2px;
 }
-.settings-btn:hover { color: var(--text); background: rgba(255,255,255,0.06); border-color: var(--border); }
-.settings-btn.open  { color: var(--text); background: rgba(255,255,255,0.08); border-color: var(--border2); }
+.settings-btn:hover { color: var(--text); background: var(--hl); border-color: var(--border); }
+.settings-btn.open  { color: var(--text); background: var(--hl2); border-color: var(--border2); }
 
 /* ===== SETTINGS PANEL ===== */
 .settings-panel {
   position:        fixed;
   top:             74px;
+  right:           20px;
   z-index:         201;
   width:           260px;
-  background:      var(--surface);
+  background:      var(--panel-bg);
   backdrop-filter: blur(24px) saturate(1.8);
   -webkit-backdrop-filter: blur(24px) saturate(1.8);
   border:          1px solid var(--border2);
   border-radius:   14px;
-  box-shadow:      0 8px 40px rgba(0,0,0,0.4);
+  box-shadow:      0 8px 40px var(--shadow);
   padding:         14px;
   transform:       translateY(-14px) scale(0.97);
   opacity:         0;
@@ -209,14 +215,14 @@ nav {
   padding:       8px 6px;
   border-radius: 10px;
   border:        2px solid transparent;
-  background:    rgba(255,255,255,0.03);
+  background:    var(--hl);
   cursor:        pointer;
   transition:    all 0.2s;
   color:         var(--muted);
   font-size:     11px;
   font-weight:   500;
 }
-.theme-option:hover { background: rgba(255,255,255,0.06); color: var(--muted2); }
+.theme-option:hover { background: var(--hl2); color: var(--muted2); }
 .theme-option.active { border-color: var(--green); color: var(--text); background: rgba(61,220,132,0.06); }
 
 /* theme preview thumbnails */
@@ -284,68 +290,23 @@ nav {
   --green:    #16a34a;
   --red:      #dc2626;
   --gold:     #b45309;
+  --hl:       rgba(0, 0, 0, 0.04);
+  --hl2:      rgba(0, 0, 0, 0.08);
+  --nav-bg:   rgba(255, 255, 255, 0.82);
+  --panel-bg: rgba(255, 255, 255, 0.97);
+  --shadow:   rgba(0,0,0,0.08);
 }
 [data-theme="light"] nav {
-  background: rgba(255, 255, 255, 0.80);
-  border-color: rgba(0,0,0,0.08);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 24px var(--shadow);
 }
-[data-theme="light"] .mobile-menu,
-[data-theme="light"] .settings-panel {
-  background: rgba(255, 255, 255, 0.97);
-  border-color: rgba(0,0,0,0.1);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-}
-[data-theme="light"] .theme-option { background: rgba(0,0,0,0.03); }
-[data-theme="light"] .theme-option:hover { background: rgba(0,0,0,0.06); }
-[data-theme="light"] .theme-option.active { background: rgba(22,163,74,0.08); }
-[data-theme="light"] .settings-btn:hover { background: rgba(0,0,0,0.05); }
 [data-theme="light"] .hamburger span { background: var(--muted2); }
 [data-theme="light"] #particle-canvas { opacity: 0.15; }
-
-/* light: cards */
-[data-theme="light"] .cr-card { background: var(--surface); border-color: var(--border); }
-[data-theme="light"] .cr-card:hover { background: var(--surface2); }
-[data-theme="light"] .ccard { background: var(--surface); border-color: var(--border); }
-[data-theme="light"] .rcard { background: var(--surface); border-color: var(--border); }
-[data-theme="light"] .ecard { background: var(--surface); border-color: var(--border); }
-
-/* light: buttons */
 [data-theme="light"] .btn-p { background: #1a1a2e; color: #fff; }
 [data-theme="light"] .btn-s { border-color: rgba(0,0,0,0.2); color: var(--text); }
 [data-theme="light"] .calc-btn { background: #1a1a2e; color: #fff; }
-[data-theme="light"] .ctab { color: var(--muted2); }
-[data-theme="light"] .ctab.active { color: var(--text); }
-
-/* light: toggle buttons */
-[data-theme="light"] .tgl-btn { background: var(--surface); border-color: var(--border); color: var(--muted2); }
-[data-theme="light"] .tgl-btn:hover { border-color: var(--border2); color: var(--text); }
-[data-theme="light"] .tgl-btn.active { background: var(--bg2); border-color: rgba(0,0,0,0.2); color: var(--text); }
-
-/* light: dropdowns */
-[data-theme="light"] .sd-trigger { background: var(--surface); border-color: rgba(0,0,0,0.15); color: var(--text); }
-[data-theme="light"] .sd-trigger:hover { border-color: rgba(0,0,0,0.25); }
-[data-theme="light"] .sd-trigger.open { border-color: rgba(0,0,0,0.3); }
-[data-theme="light"] .sd-panel { background: var(--surface); border-color: rgba(0,0,0,0.12); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
-[data-theme="light"] .sd-search { background: var(--bg2); border-bottom-color: var(--border); }
-[data-theme="light"] .sd-item:hover { background: var(--bg2); }
-[data-theme="light"] .sd-item.active { background: rgba(0,0,0,0.05); }
-
-/* light: inputs */
-[data-theme="light"] .sinput { background: var(--bg2); border-color: var(--border); color: var(--text); }
-[data-theme="light"] .winput { background: var(--bg2); border-color: var(--border); color: var(--text); }
-
-/* light: checkbox items */
-[data-theme="light"] .chk-item { border-color: var(--border); color: var(--muted2); }
-[data-theme="light"] .chk-item.checked { background: rgba(22,163,74,0.08); border-color: var(--green); color: var(--text); }
-
-/* light: result/modal */
+[data-theme="light"] .sd-panel { box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
 [data-theme="light"] .modal { background: var(--surface); }
 [data-theme="light"] .modal-overlay { background: rgba(0,0,0,0.3); }
-
-/* light: footer */
-[data-theme="light"] footer { color: var(--muted); }
-[data-theme="light"] footer a { color: var(--muted2); }
 
 [data-theme="midnight"] {
   --bg:       #080e1e;
@@ -361,10 +322,14 @@ nav {
   --green:    #34d399;
   --red:      #f87171;
   --gold:     #fbbf24;
+  --hl:       rgba(255, 255, 255, 0.05);
+  --hl2:      rgba(255, 255, 255, 0.09);
+  --nav-bg:   rgba(16, 26, 48, 0.80);
+  --panel-bg: rgba(16, 26, 48, 0.97);
+  --shadow:   rgba(0,0,0,0.5);
 }
-[data-theme="midnight"] nav { background: rgba(16, 26, 48, 0.80); }
-[data-theme="midnight"] .mobile-menu,
-[data-theme="midnight"] .settings-panel { background: rgba(16, 26, 48, 0.97); }
+[data-theme="midnight"] .btn-p { background: #1a3060; }
+[data-theme="midnight"] .calc-btn { background: #1a3060; }
 
 [data-theme="nord"] {
   --bg:       #242933;
@@ -380,10 +345,12 @@ nav {
   --green:    #a3be8c;
   --red:      #bf616a;
   --gold:     #ebcb8b;
+  --hl:       rgba(255, 255, 255, 0.05);
+  --hl2:      rgba(255, 255, 255, 0.09);
+  --nav-bg:   rgba(59, 66, 82, 0.80);
+  --panel-bg: rgba(59, 66, 82, 0.97);
+  --shadow:   rgba(0,0,0,0.4);
 }
-[data-theme="nord"] nav { background: rgba(59, 66, 82, 0.80); }
-[data-theme="nord"] .mobile-menu,
-[data-theme="nord"] .settings-panel { background: rgba(59, 66, 82, 0.97); }
 
 /* ===== CUSTOM CURSOR ===== */
 .rcard, .ecard, .uitem, .logo, nav a, .btn-p, .btn-s, .calc-btn, .import-btn, .ctab, .hamburger, .settings-btn {
@@ -1446,7 +1413,7 @@ footer a { color: var(--muted2); text-decoration: none; }
   line-height: 1.4;
 }
 .sd-item:hover   { background: var(--surface2); color: var(--text); }
-.sd-item.active  { color: var(--text); background: rgba(255,255,255,0.06); }
+.sd-item.active  { color: var(--text); background: var(--hl2); }
 .sd-item.no-res  { color: var(--muted); cursor: default; font-style: italic; }
 
 /* ===== CHECK 2-COLUMN LAYOUT ===== */
