@@ -554,6 +554,34 @@ function scoreNameTH(k) {
   return scoreNameTHMap[k] || subjectNames[k] || k;
 }
 
+// สรุปกลุ่มวิชาที่ใช้ในเกณฑ์ เช่น "TGAT+A-level คณิต"
+function criteriaGroupLabel(scores) {
+  const keys = Object.keys(scores).map(k => k.replace(/^a_lv_/, 'al'));
+  const parts = [];
+  if (keys.includes('gpax')) parts.push('GPAX');
+  const hasTGAT = keys.some(k => k.startsWith('tgat'));
+  const hasTPAT = keys.some(k => k.startsWith('tpat'));
+  if (hasTGAT) parts.push('TGAT');
+  if (hasTPAT) {
+    const tpats = keys.filter(k => k.startsWith('tpat')).map(k => k.toUpperCase().replace('TPAT',''));
+    parts.push('TPAT' + (tpats.length === 1 ? tpats[0] : ''));
+  }
+  const alKeys = keys.filter(k => k.startsWith('al'));
+  if (alKeys.length) {
+    const alParts = [];
+    const mathKeys = alKeys.filter(k => ['al61','al62'].includes(k));
+    const sciKeys  = alKeys.filter(k => ['al63','al64','al65','al66'].includes(k));
+    const socKeys  = alKeys.filter(k => k === 'al70');
+    const langKeys = alKeys.filter(k => parseInt(k.replace('al','')) >= 81);
+    if (mathKeys.length) alParts.push('คณิต' + (mathKeys.includes('al61') && mathKeys.includes('al62') ? '' : mathKeys.includes('al61') ? ' 1' : ' 2'));
+    if (sciKeys.length)  alParts.push('วิทย์');
+    if (socKeys.length)  alParts.push('สังคม');
+    if (langKeys.length) alParts.push('ภาษา');
+    parts.push('A-Level ' + alParts.join('+'));
+  }
+  return 'เกณฑ์คัดเลือกรูปแบบ ' + parts.join('+');
+}
+
 function criteriaText(scores, min_gpax, min_total) {
   const parts = Object.entries(scores).map(([k,w]) => `${subjectNames[k]||k} ${w}%`);
   return `GPAX ≥ ${min_gpax} &nbsp;|&nbsp; ${parts.join(' + ')} &nbsp;|&nbsp; คะแนนรวมขั้นต่ำ ${min_total}`;
@@ -959,13 +987,15 @@ function renderCheckCard(p, i, status, mode) {
   const typeHtml    = p.program_type_name_th   ? p.program_type_name_th : '';
   const campusHtml  = p.campus_name_th         ? p.campus_name_th : '';
   const logoHtml    = p.logo
-    ? `<img src="${p.logo}" style="width:36px;height:36px;object-fit:contain;border-radius:6px" onerror="this.outerHTML='<span style=font-size:22px>🏫</span>'">`
-    : `<span style="font-size:22px">🏫</span>`;
+    ? `<img src="${p.logo}" style="width:42px;height:42px;object-fit:contain;border-radius:6px" onerror="this.outerHTML='<span style=font-size:24px>🏫</span>'">`
+    : `<span style="font-size:24px">🏫</span>`;
+  const groupLabel  = criteriaGroupLabel(p.scores);
   return `<div class="cr-card ${status}" data-card-idx="${cardIdx}" onclick="openResultModal(_cardStore[${cardIdx}])">
     <div class="cr-logo">${logoHtml}</div>
     <div class="cr-info">
       <div class="cr-uni">${p.university_name_th} ${warnBadge}</div>
       <div class="cr-fac">${p.faculty_name_th} — ${p.program_name_th}</div>
+      <div class="cr-group">${groupLabel}</div>
       <div class="cr-criteria">GPAX ≥ ${p.min_gpax} · ${criteriaStr} · รวมขั้นต่ำ ${p.min_total}</div>
       <div class="cr-meta">
         ${seatsHtml  ? `<span class="cr-meta-item"><svg data-lucide="users" width="11" height="11"></svg> ${seatsHtml}</span>` : ''}
@@ -1011,6 +1041,7 @@ function openResultModal(p) {
   document.getElementById('rm-uni').textContent     = p.university_name_th;
   document.getElementById('rm-fac').textContent     = p.faculty_name_th;
   document.getElementById('rm-prog').textContent    = p.program_name_th;
+  document.getElementById('rm-criteria-group').textContent = criteriaGroupLabel(p.scores);
   document.getElementById('rm-project').textContent = p.project_name_th || '';
 
   // tags — เพิ่ม project_name_th ถ้ามี

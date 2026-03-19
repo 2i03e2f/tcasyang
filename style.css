@@ -753,12 +753,12 @@ h1 .hl { color: var(--muted2); }
 .cr-card {
   background:    var(--surface);
   border:        1px solid var(--border);
-  border-radius: 10px;
-  padding:       12px 14px;
-  margin-bottom: 6px;
+  border-radius: 12px;
+  padding:       14px 16px;
+  margin-bottom: 8px;
   display:       flex;
   align-items:   center;
-  gap:           12px;
+  gap:           14px;
   cursor:        pointer;
   transition:    all 0.15s;
   position:      relative;
@@ -771,7 +771,7 @@ h1 .hl { color: var(--muted2); }
   left:          0; top: 0; bottom: 0;
   width:         3px;
   background:    var(--green);
-  border-radius: 10px 0 0 10px;
+  border-radius: 12px 0 0 12px;
 }
 .cr-card.fail::before {
   content:       '';
@@ -779,15 +779,16 @@ h1 .hl { color: var(--muted2); }
   left:          0; top: 0; bottom: 0;
   width:         3px;
   background:    var(--red);
-  border-radius: 10px 0 0 10px;
+  border-radius: 12px 0 0 12px;
 }
 
-.cr-logo  { font-size: 24px; flex-shrink: 0; width: 36px; text-align: center; }
+.cr-logo  { font-size: 26px; flex-shrink: 0; width: 42px; text-align: center; }
 .cr-info  { flex: 1; min-width: 0; }
-.cr-uni   { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 6px; }
-.cr-fac   { font-size: 11px; color: var(--muted2); margin-top: 1px; }
-.cr-criteria { font-size: 10px; color: var(--muted); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.cr-score { font-family: 'Prompt', 'Syne', sans-serif; font-size: 15px; font-weight: 800; color: var(--muted2); flex-shrink: 0; }
+.cr-uni   { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 6px; }
+.cr-fac   { font-size: 12px; color: var(--muted2); margin-top: 2px; }
+.cr-group { font-size: 11px; color: var(--gold); margin-top: 3px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cr-criteria { font-size: 11px; color: var(--muted); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cr-score { font-family: 'Prompt', 'Syne', sans-serif; font-size: 17px; font-weight: 800; color: var(--muted2); flex-shrink: 0; }
 .cr-warn-badge {
   font-size:     9px;
   padding:       2px 6px;
