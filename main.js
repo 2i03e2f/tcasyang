@@ -612,11 +612,38 @@ const scoreNameTHMap = {
 };
 
 function scoreNameTH(k) {
+  if (k.includes('|')) {
+    const parts = k.split('|');
+    const names = parts.map(p => {
+      const n = scoreNameTHMap[p] || scoreNameTHMap[normalizeScoreKey(p)] || subjectNames[normalizeScoreKey(p)] || p;
+      // shorten: remove "ALEVEL " prefix for brevity in "หรือ" lists
+      return n.replace(/^ALEVEL /, '');
+    });
+    return names.join(' หรือ ');
+  }
   return scoreNameTHMap[k] || subjectNames[k] || k;
 }
 
+// resolve a score key (possibly with |) against user scores — pick best
+function resolveScore(key, st) {
+  if (key.includes('|')) {
+    const parts = key.split('|').map(p => normalizeScoreKey(p));
+    const scores = parts.map(p => st[p] || 0).filter(v => v > 0);
+    return scores.length ? Math.max(...scores) : 0;
+  }
+  return st[key] || st[normalizeScoreKey(key)] || 0;
+}
+
+// check if user has any score for a key (possibly with |)
+function hasScore(key, st) {
+  if (key.includes('|')) {
+    return key.split('|').some(p => (st[normalizeScoreKey(p)] || 0) > 0);
+  }
+  return (st[key] || st[normalizeScoreKey(key)] || 0) > 0;
+}
+
 function criteriaText(scores, min_gpax, min_total) {
-  const parts = Object.entries(scores).map(([k,w]) => `${subjectNames[k]||k} ${w}%`);
+  const parts = Object.entries(scores).map(([k,w]) => `${scoreNameTH(k)} ${w}%`);
   return `GPAX ≥ ${min_gpax} &nbsp;|&nbsp; ${parts.join(' + ')} &nbsp;|&nbsp; คะแนนรวมขั้นต่ำ ${min_total}`;
 }
 
@@ -687,15 +714,15 @@ function checkCriteria() {
     let ok = true;
     if (mode !== '6' && st.gpax < prog.min_gpax) ok = false;
     const reqKeys = Object.keys(prog.scores);
-    const hasReq  = reqKeys.some(k => (st[k] || 0) > 0);
+    const hasReq  = reqKeys.some(k => hasScore(k, st));
     if (!hasReq) return;
 
-    const missing = reqKeys.filter(k => (st[k] || 0) === 0);
+    const missing = reqKeys.filter(k => !hasScore(k, st));
     if (missing.length) ok = false;
 
     let total = 0;
     if (mode !== '6') {
-      reqKeys.forEach(k => { total += (st[k] || 0) * (prog.scores[k] / 100); });
+      reqKeys.forEach(k => { total += resolveScore(k, st) * (prog.scores[k] / 100); });
       if (ok && prog.min_total && total < prog.min_total) ok = false;
     }
 
@@ -1012,7 +1039,7 @@ function renderCheckCard(p, i, status, mode) {
   const cardIdx = _cardStore.length;
   _cardStore.push(p);
   const warnBadge   = p.changed ? `<span class="cr-warn-badge"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="alert-triangle"></svg> เกณฑ์เปลี่ยน</span>` : '';
-  const criteriaStr = Object.entries(p.scores).map(([k,w]) => `${subjectNames[k]||k} ${w}%`).join(' · ');
+  const criteriaStr = Object.entries(p.scores).map(([k,w]) => `${scoreNameTH(k)} ${w}%`).join(' · ');
   const scoreDisp   = (mode === '6' || status === 'fail') ? '—' : p.total.toFixed(2);
   const chanceHtml  = (p.chance !== null && p.chance !== undefined && mode !== '6')
     ? `<span class="cr-chance">${p.chance}%</span>` : '';
