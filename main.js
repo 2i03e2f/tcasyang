@@ -962,11 +962,12 @@ function renderCheckCard(p, i, status, mode) {
     ? `<img src="${p.logo}" style="width:42px;height:42px;object-fit:contain;border-radius:6px" onerror="this.outerHTML='<span style=font-size:24px>🏫</span>'">`
     : `<span style="font-size:24px">🏫</span>`;
   const projectLabel = p.project_name_th || '';
+  const majorLabel = p.major_name_th || '';
   return `<div class="cr-card ${status}" data-card-idx="${cardIdx}" onclick="openResultModal(_cardStore[${cardIdx}])">
     <div class="cr-logo">${logoHtml}</div>
     <div class="cr-info">
       <div class="cr-uni">${p.university_name_th} ${warnBadge}</div>
-      <div class="cr-fac">${p.faculty_name_th} — ${p.program_name_th}</div>
+      <div class="cr-fac">${p.faculty_name_th} — ${p.program_name_th}${majorLabel ? ` <span class="cr-major">[${majorLabel}]</span>` : ''}</div>
       ${projectLabel ? `<div class="cr-group">${projectLabel}</div>` : ''}
       <div class="cr-criteria">GPAX ≥ ${p.min_gpax} · ${criteriaStr} · รวมขั้นต่ำ ${p.min_total}</div>
       <div class="cr-meta">
@@ -1012,7 +1013,7 @@ function openResultModal(p) {
   document.getElementById('rm-logo').innerHTML   = logoHtml;
   document.getElementById('rm-uni').textContent     = p.university_name_th;
   document.getElementById('rm-fac').textContent     = p.faculty_name_th;
-  document.getElementById('rm-prog').textContent    = p.program_name_th;
+  document.getElementById('rm-prog').textContent    = p.program_name_th + (p.major_name_th ? ` [${p.major_name_th}]` : '');
   document.getElementById('rm-project').textContent = p.project_name_th || '';
 
   // tags — เพิ่ม project_name_th ถ้ามี
