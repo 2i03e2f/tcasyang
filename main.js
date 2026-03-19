@@ -57,9 +57,11 @@
       if (this.y > H) this.y = 0;
     }
     draw() {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      const c = isLight ? '60,60,80' : '180,180,200';
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(180,180,200,${this.a})`;
+      ctx.fillStyle = `rgba(${c},${this.a})`;
       ctx.fill();
     }
   }
@@ -67,6 +69,7 @@
   for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
 
   function drawLines() {
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
     const MAX_DIST = 120;
     for (let i = 0; i < particles.length; i++) {
       for (let j = i+1; j < particles.length; j++) {
@@ -74,10 +77,11 @@
         const dy   = particles[i].y - particles[j].y;
         const dist = Math.sqrt(dx*dx + dy*dy);
         if (dist < MAX_DIST) {
+          const c = isLight ? '80,80,120' : '120,120,160';
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(120,120,160,${0.12 * (1 - dist/MAX_DIST)})`;
+          ctx.strokeStyle = `rgba(${c},${0.12 * (1 - dist/MAX_DIST)})`;
           ctx.lineWidth   = 0.5;
           ctx.stroke();
         }
@@ -302,6 +306,31 @@ const scoreMax = {
 };
 
 let savedScores = {};
+
+// clamp score input: no negative, max 100 (or 4 for gpax), 2 decimal places
+function clampScore(input) {
+  let v = parseFloat(input.value);
+  if (isNaN(v) || v < 0) { input.value = ''; return; }
+  const max = parseFloat(input.max) || 100;
+  if (v > max) v = max;
+  // round to 2 decimal places
+  v = Math.round(v * 100) / 100;
+  input.value = v;
+}
+
+// attach validation to all score inputs on page load
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.sinput').forEach(input => {
+    // prevent typing negative sign
+    input.addEventListener('keydown', e => {
+      if (e.key === '-' || e.key === 'e' || e.key === 'E') e.preventDefault();
+    });
+    // clamp on blur (when user leaves field)
+    input.addEventListener('blur', () => clampScore(input));
+    // also set step for 2 decimals
+    if (!input.step || input.step === 'any') input.step = '0.01';
+  });
+});
 
 function lbl(k, v) {
   const el = document.getElementById('lv-' + k);
@@ -1219,12 +1248,24 @@ function renderU(list) {
     list.map((u, i) => {
       const idx = allU.indexOf(u);
       const logoHtml = `<img src="logos/${u.university_id}.png" style="width:32px;height:32px;object-fit:contain;border-radius:6px" onerror="this.outerHTML='<span style=font-size:20px>🏫</span>'">`;
-      return `<div class="uitem" onclick="openModal(${idx})">
+      return `<div class="uitem" onclick="openModal(${idx})" onmouseenter="preloadUniImage(${idx})">
         <div class="ulogo">${logoHtml}</div>
         <div class="uname">${u.name_th}</div>
       </div>`;
     }).join('') +
     '</div>';
+}
+
+// preload view image when hovering over uni item
+function preloadUniImage(idx) {
+  const u = allU[idx];
+  if (!u || u._preloaded) return;
+  u._preloaded = true;
+  const campus = u.campuses[0];
+  if (campus) {
+    const img = new Image();
+    img.src = `views/${u.university_id}_${campus.name}.jpg`;
+  }
 }
 
 function filterU() {

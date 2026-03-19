@@ -22,7 +22,7 @@
 
 /* ===== RESET ===== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-::selection { background: rgba(255, 255, 255, 0.15); }
+::selection { background: var(--hl2); color: var(--text); }
 
 body {
   background:   var(--bg);
@@ -300,7 +300,6 @@ nav {
   box-shadow: 0 4px 24px var(--shadow);
 }
 [data-theme="light"] .hamburger span { background: var(--muted2); }
-[data-theme="light"] #particle-canvas { opacity: 0.15; }
 [data-theme="light"] .btn-p { background: #1a1a2e; color: #fff; }
 [data-theme="light"] .btn-s { border-color: rgba(0,0,0,0.2); color: var(--text); }
 [data-theme="light"] .calc-btn { background: #1a1a2e; color: #fff; }
@@ -1331,7 +1330,7 @@ footer a { color: var(--muted2); text-decoration: none; }
 
 .sd-trigger {
   width:          100%;
-  background:     var(--bg2);
+  background:     color-mix(in srgb, var(--bg2) 75%, transparent);
   border:         1px solid var(--border2);
   border-radius:  14px;
   color:          var(--text);
@@ -1365,7 +1364,7 @@ footer a { color: var(--muted2); text-decoration: none; }
   position:      absolute;
   top:           calc(100% + 8px);
   left:          0; right: 0;
-  background:    var(--surface);
+  background:    color-mix(in srgb, var(--surface) 80%, transparent);
   border:        1px solid var(--border2);
   border-radius: 14px;
   z-index:       100;
