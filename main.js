@@ -218,7 +218,8 @@ const scoreKeys = [
   'tgat1', 'tgat2', 'tgat3',
   'tpat1', 'tpat2', 'tpat3', 'tpat4', 'tpat5',
   'al61',  'al62',  'al63',  'al64',  'al65',
-  'al66',  'al70',  'al82',  'al85',
+  'al66',  'al70',  'al81',  'al82',  'al83',
+  'al84',  'al85',  'al86',  'al87',  'al88',  'al89',
 ];
 
 const scoreLabels = [
@@ -226,7 +227,8 @@ const scoreLabels = [
   'TGAT1', 'TGAT2', 'TGAT3',
   'TPAT1', 'TPAT2', 'TPAT3', 'TPAT4', 'TPAT5',
   'A-Level 61', 'A-Level 62', 'A-Level 63', 'A-Level 64', 'A-Level 65',
-  'A-Level 66', 'A-Level 70', 'A-Level 82', 'A-Level 85',
+  'A-Level 66', 'A-Level 70', 'A-Level 81', 'A-Level 82', 'A-Level 83',
+  'A-Level 84', 'A-Level 85', 'A-Level 86', 'A-Level 87', 'A-Level 88', 'A-Level 89',
 ];
 
 const scoreMax = {
@@ -234,7 +236,8 @@ const scoreMax = {
   tgat1: 100, tgat2: 100, tgat3: 100,
   tpat1: 100, tpat2: 100, tpat3: 100, tpat4: 100, tpat5: 100,
   al61: 100, al62: 100, al63: 100, al64: 100, al65: 100,
-  al66: 100, al70: 100, al82: 100, al85: 100,
+  al66: 100, al70: 100, al81: 100, al82: 100, al83: 100,
+  al84: 100, al85: 100, al86: 100, al87: 100, al88: 100, al89: 100,
 };
 
 let savedScores = {};
@@ -276,7 +279,9 @@ const weightLabels = {
   gpax:'GPAX', tgat1:'TGAT1', tgat2:'TGAT2', tgat3:'TGAT3',
   tpat1:'TPAT1', tpat2:'TPAT2', tpat3:'TPAT3', tpat4:'TPAT4', tpat5:'TPAT5',
   al61:'A-Lv 61', al62:'A-Lv 62', al63:'A-Lv 63', al64:'A-Lv 64',
-  al65:'A-Lv 65', al66:'A-Lv 66', al70:'A-Lv 70', al82:'A-Lv 82', al85:'A-Lv 85',
+  al65:'A-Lv 65', al66:'A-Lv 66', al70:'A-Lv 70', al81:'A-Lv 81',
+  al82:'A-Lv 82', al83:'A-Lv 83', al84:'A-Lv 84', al85:'A-Lv 85',
+  al86:'A-Lv 86', al87:'A-Lv 87', al88:'A-Lv 88', al89:'A-Lv 89',
 };
 
 function renderWeights() {
@@ -386,12 +391,13 @@ function calc() {
     </div>`
   ).join('');
 
-  document.getElementById('rnote').textContent =
-    total >= 80 ? '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" data-lucide=\"star\"></svg> ยอดเยี่ยม — คะแนนสูงมาก' :
-    total >= 60 ? '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" data-lucide=\"thumbs-up\"></svg> ดี — คะแนนอยู่ในระดับดี' :
-    total >= 40 ? '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" data-lucide=\"book-open\"></svg> พอใช้ได้ — ยังมีเวลาพัฒนา' :
-                  '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" data-lucide=\"zap\"></svg> ยังมีโอกาส — ตั้งใจเตรียมสอบให้ดี';
+  document.getElementById('rnote').innerHTML =
+    total >= 80 ? '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star"></svg> ยอดเยี่ยม — คะแนนสูงมาก' :
+    total >= 60 ? '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="thumbs-up"></svg> ดี — คะแนนอยู่ในระดับดี' :
+    total >= 40 ? '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="book-open"></svg> พอใช้ได้ — ยังมีเวลาพัฒนา' :
+                  '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="zap"></svg> ยังมีโอกาส — ตั้งใจเตรียมสอบให้ดี';
 
+  refreshIcons();
   setTimeout(() => document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
 }
 
@@ -582,7 +588,7 @@ function checkCriteria() {
   const mode = document.getElementById('check-mode').value;
   _currentMode = mode;
   const st   = {};
-  const allKeys = [...scoreKeys, 'al81','al83','al84','al86','al87','al88','al89'];
+  const allKeys = scoreKeys;
 
   if (mode === '6') {
     allKeys.forEach(k => {
@@ -846,32 +852,6 @@ function populateSelect(id, options, defaultLabel) {
     options.map(o => `<option value="${o}"${o===cur?' selected':''}>${o}</option>`).join('');
 }
 
-function applyFilters() {
-  const status  = document.getElementById('of-status')?.value  || '';
-  const changed = document.getElementById('of-changed')?.value || '';
-  const type    = document.getElementById('of-type')?.value    || '';
-  const campus  = document.getElementById('of-campus')?.value  || '';
-  const fac     = document.getElementById('of-fac')?.value     || '';
-
-  let filtered = _allResults.filter(r => {
-    if (status  === 'pass'    && r.status  !== 'pass')    return false;
-    if (status  === 'fail'    && r.status  !== 'fail')    return false;
-    if (changed === 'changed' && !r.changed)               return false;
-    if (changed === 'same'    && r.changed)                return false;
-    if (type    && r.program_type_name_th !== type)        return false;
-    if (campus  && r.campus_name_th       !== campus)      return false;
-    if (fac && r.group_field_th !== fac)         return false;
-    return true;
-  });
-
-  const pass = filtered.filter(r => r.status === 'pass').length;
-  const fail = filtered.filter(r => r.status === 'fail').length;
-  document.getElementById('of-summary').textContent =
-    `พบ ${filtered.length} สาขา (ผ่าน ${pass} / ไม่ผ่าน ${fail})`;
-
-  renderPage(1, filtered);
-}
-
 function renderPage(page, data) {
   const list = data || _allResults;
   const PER  = 20;
@@ -881,6 +861,7 @@ function renderPage(page, data) {
 
   const slice = list.slice((page-1)*PER, page*PER);
   const container = document.getElementById('check-results');
+  _cardStore = []; // reset card store for this page render
 
   // group pass/fail
   const passItems = slice.filter(r => r.status === 'pass');
@@ -936,8 +917,7 @@ function applyFilters_page(pg, list) {
   renderPage(pg, list);
 }
 
-// override applyFilters เพื่อ cache list
-const _applyFiltersOrig = applyFilters;
+// applyFilters with cache for pagination
 function applyFilters() {
   const status  = document.getElementById('of-status')?.value  || '';
   const changed = document.getElementById('of-changed')?.value || '';
@@ -964,7 +944,12 @@ function applyFilters() {
   renderPage(1, _filteredCache);
 }
 
+// global store for check result cards (avoids inline JSON in onclick)
+let _cardStore = [];
+
 function renderCheckCard(p, i, status, mode) {
+  const cardIdx = _cardStore.length;
+  _cardStore.push(p);
   const warnBadge   = p.changed ? `<span class="cr-warn-badge"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="alert-triangle"></svg> เกณฑ์เปลี่ยน</span>` : '';
   const criteriaStr = Object.entries(p.scores).map(([k,w]) => `${subjectNames[k]||k} ${w}%`).join(' · ');
   const scoreDisp   = (mode === '6' || status === 'fail') ? '—' : p.total.toFixed(2);
@@ -976,8 +961,7 @@ function renderCheckCard(p, i, status, mode) {
   const logoHtml    = p.logo
     ? `<img src="${p.logo}" style="width:36px;height:36px;object-fit:contain;border-radius:6px" onerror="this.outerHTML='<span style=font-size:22px>🏫</span>'">`
     : `<span style="font-size:22px">🏫</span>`;
-  const pJson = JSON.stringify(p).replace(/"/g, '&quot;');
-  return `<div class="cr-card ${status}" onclick="openResultModal(${pJson})">
+  return `<div class="cr-card ${status}" data-card-idx="${cardIdx}" onclick="openResultModal(_cardStore[${cardIdx}])">
     <div class="cr-logo">${logoHtml}</div>
     <div class="cr-info">
       <div class="cr-uni">${p.university_name_th} ${warnBadge}</div>
@@ -1118,7 +1102,6 @@ function closeResultModalDirect() {
 }
 
 // ===== UNIVERSITIES =====
-// ===== UNIVERSITIES =====
 let allU    = [];
 let uLoaded = false;
 
@@ -1222,9 +1205,14 @@ function renderCampusSidebar(u, activeIdx) {
   sd.trigger.textContent = u.campuses[activeIdx].name + ' · ' + u.campuses[activeIdx].location;
 
   // update visibility based on screen width
+  // remove old listener to prevent memory leak
+  if (window._campusResizeHandler) {
+    window.removeEventListener('resize', window._campusResizeHandler);
+  }
+  window._campusResizeHandler = updateCampusSelectorVisibility;
   updateCampusSelectorVisibility();
 
-  window.addEventListener('resize', updateCampusSelectorVisibility);
+  window.addEventListener('resize', window._campusResizeHandler);
 }
 
 function switchCampus(idx) {
