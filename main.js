@@ -152,6 +152,10 @@ function toggleSettings(e) {
   if (isOpen) {
     closeSettings();
   } else {
+    // position panel under gear icon
+    const rect = btn.getBoundingClientRect();
+    panel.style.top  = (rect.bottom + 8) + 'px';
+    panel.style.right = (window.innerWidth - rect.right) + 'px';
     panel.classList.add('open');
     btn.classList.add('open');
   }
