@@ -141,6 +141,58 @@ function syncMobileActive(id) {
   if (links[idx]) links[idx].classList.add('active');
 }
 
+// ===== SETTINGS PANEL =====
+function toggleSettings(e) {
+  e.stopPropagation();
+  const panel = document.getElementById('settings-panel');
+  const btn   = document.getElementById('settings-btn');
+  const isOpen = panel.classList.contains('open');
+  // close mobile menu if open
+  closeMenu();
+  if (isOpen) {
+    closeSettings();
+  } else {
+    panel.classList.add('open');
+    btn.classList.add('open');
+  }
+}
+
+function closeSettings() {
+  document.getElementById('settings-panel').classList.remove('open');
+  document.getElementById('settings-btn').classList.remove('open');
+}
+
+// close settings when clicking outside
+document.addEventListener('click', (e) => {
+  const panel = document.getElementById('settings-panel');
+  const btn   = document.getElementById('settings-btn');
+  if (panel && !panel.contains(e.target) && e.target !== btn && !btn.contains(e.target)) {
+    closeSettings();
+  }
+});
+
+// ===== THEME SWITCHING =====
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('tcasyang-theme', theme);
+  // update active state in grid
+  document.querySelectorAll('.theme-option').forEach(el => {
+    el.classList.toggle('active', el.dataset.theme === theme);
+  });
+}
+
+// load saved theme on startup
+(function initTheme() {
+  const saved = localStorage.getItem('tcasyang-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  // sync active button after DOM ready
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.theme-option').forEach(el => {
+      el.classList.toggle('active', el.dataset.theme === saved);
+    });
+  });
+})();
+
 // ===== TOGGLE GROUP =====
 function setToggle(groupId, btn, val) {
   document.querySelectorAll(`#${groupId} .tgl-btn`).forEach(b => b.classList.remove('active'));
