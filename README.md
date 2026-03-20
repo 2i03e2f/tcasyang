@@ -16,12 +16,13 @@ Page: https://2i03e2f.github.io/tcasyang/
 2. Tech Stack
     - Frontend: Vanilla HTML/CSS/JS (no framework)
     - Icons: Lucide
-    - Fonts: Noto Sans Thai, Syne, Prompt (Google Fonts)
+    - Fonts: LineSeedSansTH
     - Hosting: GitHub Pages
     - Data: Static JSON, pre-built from MyTCAS S3 API
 
 3. Credits
-    - Developed by [@2i03e2f](https://github.com/2i03e2f) with ClaudeAI
+    - Developed by [@2i03e2f](https://github.com/2i03e2f)
+    - Assistance from Claude AI
     - Data from [MyTCAS](https://www.mytcas.com/) (official TCAS platform by CUPT)
     - University logos and photos belong to their respective institutions
 
