@@ -1,3 +1,6 @@
+/* ===== LINE SEED SANS TH (via lazywasabi CDN) ===== */
+@import url('https://cdn.jsdelivr.net/gh/lazywasabi/thai-web-fonts@7/fonts/LINESeedSansTH/LINESeedSansTH.css');
+
 /* ===== ROOT ===== */
 :root {
   --bg:       #060608;
@@ -27,7 +30,7 @@
 body {
   background:   var(--bg);
   color:        var(--text);
-  font-family:  'Noto Sans Thai', sans-serif;
+  font-family: 'LINE Seed Sans TH', sans-serif;
   font-size:    16px;
   line-height:  1.6;
   min-height:   100vh;
@@ -382,7 +385,7 @@ nav {
 }
 
 .logo {
-  font-family:   'Prompt', 'Syne', sans-serif;
+  font-family: 'LINE Seed Sans TH', sans-serif;
   font-size:     20px;
   font-weight:   800;
   letter-spacing: -0.5px;
@@ -502,7 +505,7 @@ nav a.active { color: var(--text); background: rgba(255, 255, 255, 0.06); }
 }
 
 h1 {
-  font-family:    'Prompt', 'Syne', sans-serif;
+  font-family: 'LINE Seed Sans TH', sans-serif;
   font-size:      clamp(1.9rem, 5vw, 3.2rem);
   font-weight:    800;
   line-height:    1.1;
@@ -577,7 +580,7 @@ h1 .hl { color: var(--muted2); }
 }
 
 .scard  { background: var(--hl); padding: 20px 16px; border-radius: 12px; }
-.snum   { font-family: 'Prompt', 'Syne', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 4px; color: var(--text); }
+.snum   { font-family: 'LINE Seed Sans TH', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 4px; color: var(--text); }
 .slbl   { font-size: 11px; color: var(--muted2); }
 
 /* ===== SECTION ===== */
@@ -594,11 +597,11 @@ h1 .hl { color: var(--muted2); }
   color:          var(--muted);
   text-transform: uppercase;
   margin-bottom:  5px;
-  font-family:    'Prompt', 'Syne', sans-serif;
+  font-family: 'LINE Seed Sans TH', sans-serif;
 }
 
 .sec-title {
-  font-family:    'Prompt', 'Syne', sans-serif;
+  font-family: 'LINE Seed Sans TH', sans-serif;
   font-size:      1.5rem;
   font-weight:    800;
   letter-spacing: -0.5px;
@@ -655,10 +658,10 @@ h1 .hl { color: var(--muted2); }
 .rcard:nth-child(4):hover .rname { color: #00709a; text-shadow: 0 0 12px rgba(58,159,212,0.6); }
 
 .rcard > * { position: relative; z-index: 1; }
-.rnum  { font-family: 'Prompt', 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
+.rnum  { font-family: 'LINE Seed Sans TH', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
 .rname { font-size: 16px; font-weight: 600; margin-bottom: 6px; transition: color 0.3s, text-shadow 0.3s; color: var(--text); }
 .rdesc { font-size: 13px; color: var(--muted2); line-height: 1.6; margin-bottom: 14px; }
-.rdate { font-size: 11px; color: var(--muted2); font-family: 'Prompt', 'Syne', sans-serif; font-weight: 600; }
+.rdate { font-size: 11px; color: var(--muted2); font-family: 'LINE Seed Sans TH', sans-serif; font-weight: 600; }
 
 /* ===== EXAMS ===== */
 .exams {
@@ -704,7 +707,7 @@ h1 .hl { color: var(--muted2); }
 .ecard[data-type="gpax"]:hover   .ebadge { color: #f97316; text-shadow: 0 0 10px rgba(249,115,22,0.7); }
 
 .ecard > * { position: relative; z-index: 1; }
-.ebadge    { font-size: 11px; font-weight: 700; letter-spacing: 1px; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px; font-family: 'Prompt', 'Syne', sans-serif; text-transform: uppercase; background: var(--hl2); color: var(--muted2); transition: color 0.3s, text-shadow 0.3s; }
+.ebadge    { font-size: 11px; font-weight: 700; letter-spacing: 1px; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px; font-family: 'LINE Seed Sans TH', sans-serif; text-transform: uppercase; background: var(--hl2); color: var(--muted2); transition: color 0.3s, text-shadow 0.3s; }
 .efull     { font-size: 15px; color: var(--text); margin-bottom: 12px; font-weight: 500; }
 .esubj     { font-size: 13px; color: var(--muted2); padding: 5px 0; border-bottom: 1px solid var(--border); }
 .esubj:last-child { border-bottom: none; }
@@ -839,7 +842,7 @@ h1 .hl { color: var(--muted2); }
   text-transform: uppercase;
   color:          var(--muted);
   margin-bottom:  10px;
-  font-family:    'Prompt', 'Syne', sans-serif;
+  font-family: 'LINE Seed Sans TH', sans-serif;
 }
 
 /* hide number input spinners */
@@ -947,7 +950,7 @@ h1 .hl { color: var(--muted2); }
 .result.show { display: block; }
 
 .result-hd   { text-align: center; margin-bottom: 20px; }
-.result-big  { font-family: 'Prompt', 'Syne', sans-serif; font-size: 3rem; font-weight: 800; letter-spacing: -2px; color: var(--text); line-height: 1; }
+.result-big  { font-family: 'LINE Seed Sans TH', sans-serif; font-size: 3rem; font-weight: 800; letter-spacing: -2px; color: var(--text); line-height: 1; }
 .result-lbl  { color: var(--muted); font-size: 11px; margin-top: 4px; }
 
 .breakdown {
@@ -959,7 +962,7 @@ h1 .hl { color: var(--muted2); }
 
 .bitem    { background: var(--bg2); border: 1px solid var(--border); border-radius: 7px; padding: 8px; text-align: center; }
 .bname    { font-size: 9px; color: var(--muted); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
-.bval     { font-size: 15px; font-weight: 700; font-family: 'Prompt', 'Syne', sans-serif; }
+.bval     { font-size: 15px; font-weight: 700; font-family: 'LINE Seed Sans TH', sans-serif; }
 .bcontrib { font-size: 9px; color: var(--muted2); margin-top: 1px; }
 
 .bar-wrap  { margin-bottom: 8px; }
@@ -995,7 +998,7 @@ h1 .hl { color: var(--muted2); }
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom:  8px;
-  font-family:    'Prompt', 'Syne', sans-serif;
+  font-family: 'LINE Seed Sans TH', sans-serif;
 }
 
 .cr-card {
@@ -1037,7 +1040,7 @@ h1 .hl { color: var(--muted2); }
 .cr-group { font-size: 11px; color: var(--gold); margin-top: 3px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cr-major { color: var(--green); font-weight: 600; }
 .cr-criteria { font-size: 11px; color: var(--muted); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.cr-score { font-family: 'Prompt', 'Syne', sans-serif; font-size: 17px; font-weight: 800; color: var(--muted2); flex-shrink: 0; }
+.cr-score { font-family: 'LINE Seed Sans TH', sans-serif; font-size: 17px; font-weight: 800; color: var(--muted2); flex-shrink: 0; }
 .cr-warn-badge {
   font-size:     9px;
   padding:       2px 6px;
@@ -1220,7 +1223,7 @@ select.sinput {
 .modal-logo-row    { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
 .modal-logo        { width: 48px; height: 48px; border-radius: 10px; background: var(--bg2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; overflow: hidden; }
 .modal-logo img    { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
-.modal-uni-name    { font-family: 'Prompt', 'Syne', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: -0.3px; line-height: 1.2; }
+.modal-uni-name    { font-family: 'LINE Seed Sans TH', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: -0.3px; line-height: 1.2; }
 .modal-uni-en      { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
 .modal-tags  { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
@@ -1229,7 +1232,7 @@ select.sinput {
 .modal-info-grid  { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
 .modal-info-item  { background: var(--bg2); border-radius: 7px; padding: 10px; }
 .modal-info-label { font-size: 10px; color: var(--muted); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
-.modal-info-val   { font-size: 13px; font-weight: 600; font-family: 'Prompt', 'Syne', sans-serif; }
+.modal-info-val   { font-size: 13px; font-weight: 600; font-family: 'LINE Seed Sans TH', sans-serif; }
 
 .modal-desc    { font-size: 12px; color: var(--muted2); line-height: 1.7; margin-bottom: 16px; }
 .modal-map     { width: 100%; height: 180px; border-radius: 8px; border: 1px solid var(--border); overflow: hidden; background: var(--bg2); }
@@ -1300,7 +1303,7 @@ body.modal-open { overflow: hidden; }
   padding:       4px 9px;
   cursor:        pointer;
   transition:    all 0.15s;
-  font-family:   'Prompt', 'Syne', sans-serif;
+  font-family: 'LINE Seed Sans TH', sans-serif;
 }
 .quick-pct-btn:hover { background: var(--surface2); color: var(--text); border-color: var(--border2); }
 
@@ -1315,7 +1318,7 @@ body.modal-open { overflow: hidden; }
   padding:       6px 12px;
   cursor:        pointer;
   transition:    all 0.15s;
-  font-family:   'Prompt', 'Syne', sans-serif;
+  font-family: 'LINE Seed Sans TH', sans-serif;
 }
 .pg-btn:hover    { background: var(--surface2); color: var(--text); }
 .pg-btn.active   { background: var(--text); color: var(--bg); border-color: var(--text); }
@@ -1505,7 +1508,7 @@ body.modal-open { overflow: hidden; }
 .mode-btn-alt.active { border-color: rgba(59,130,246,0.5); background: rgba(59,130,246,0.1); }
 
 .mode-num {
-  font-family:  'Syne', sans-serif;
+  font-family: 'LINE Seed Sans TH', sans-serif;
   font-size:    13px;
   font-weight:  800;
   width:        20px;
@@ -1529,7 +1532,7 @@ body.modal-open { overflow: hidden; }
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color:          var(--muted);
-  font-family:    'Prompt', 'Syne', sans-serif;
+  font-family: 'LINE Seed Sans TH', sans-serif;
   margin:         12px 0 6px;
 }
 .ck-group-label:first-of-type { margin-top: 4px; }
@@ -1550,7 +1553,7 @@ body.modal-open { overflow: hidden; }
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color:          var(--muted);
-  font-family:    'Prompt', 'Syne', sans-serif;
+  font-family: 'LINE Seed Sans TH', sans-serif;
   padding-bottom: 6px;
   border-bottom:  1px solid var(--border);
   margin-bottom:  4px;
@@ -1600,7 +1603,7 @@ body.modal-open { overflow: hidden; }
 .mode-btn-alt.active { border-color: rgba(255,200,50,0.4); background: rgba(255,200,50,0.06); }
 
 .mode-num {
-  font-family:   'Prompt', 'Syne', sans-serif;
+  font-family: 'LINE Seed Sans TH', sans-serif;
   font-weight:   800;
   font-size:     16px;
   color:         var(--muted);
@@ -1617,7 +1620,7 @@ body.modal-open { overflow: hidden; }
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color:          var(--muted);
-  font-family:    'Prompt', 'Syne', sans-serif;
+  font-family: 'LINE Seed Sans TH', sans-serif;
   padding-bottom: 5px;
   border-bottom:  1px solid var(--border);
   margin-bottom:  4px;
@@ -1641,7 +1644,7 @@ body.modal-open { overflow: hidden; }
   text-transform: uppercase;
   color:          var(--muted);
   margin-bottom:  8px;
-  font-family:    'Prompt', 'Syne', sans-serif;
+  font-family: 'LINE Seed Sans TH', sans-serif;
   padding-bottom: 4px;
   border-bottom:  1px solid var(--border);
 }
