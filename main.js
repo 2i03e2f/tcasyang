@@ -117,6 +117,29 @@ document.querySelectorAll('.tilt-card').forEach(card => {
   });
 });
 
+// ===== HERO GLOBAL TILT =====
+(function() {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+  let tiltX = 0, tiltY = 0, targetX = 0, targetY = 0;
+
+  window.addEventListener('mousemove', e => {
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+    targetX = ((e.clientY - cy) / cy) * 3;   // max ±3 deg
+    targetY = ((e.clientX - cx) / cx) * -3;
+  });
+
+  function animateTilt() {
+    // lerp for smoothness
+    tiltX += (targetX - tiltX) * 0.08;
+    tiltY += (targetY - tiltY) * 0.08;
+    hero.style.transform = `perspective(1200px) rotateX(${tiltX.toFixed(3)}deg) rotateY(${tiltY.toFixed(3)}deg)`;
+    requestAnimationFrame(animateTilt);
+  }
+  animateTilt();
+})();
+
 // ===== HAMBURGER =====
 function toggleMenu() {
   const btn  = document.getElementById('hamburger');
@@ -1122,7 +1145,7 @@ function openResultModal(p) {
   const imageSrc = campusName ? `views/${uniId}_${campusName}.jpg` : `views/${uniId}.jpg`;
   document.getElementById('result-modal-cover').innerHTML =
     `<div style="width:100%;height:200px;overflow:hidden;position:relative;background:var(--surface2);border-radius:14px 14px 0 0;">
-      <img src="${imageSrc}" style="width:100%;height:100%;object-fit:cover;display:block;"
+      <img fetchpriority="high" decoding="async" src="${imageSrc}" style="width:100%;height:100%;object-fit:cover;display:block;"
         onerror="this.style.display='none'">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.05) 0%,var(--surface) 100%)"></div>
     </div>`;
@@ -1234,7 +1257,13 @@ fetch('universities_data.json')
 
 function loadU() {
   uLoaded = true;
-  if (allU.length) renderU(allU);
+  if (allU.length) {
+    renderU(allU);
+    // batch preload first 20 uni images in background
+    setTimeout(() => {
+      allU.slice(0, 20).forEach((u, i) => preloadUniImage(i));
+    }, 500);
+  }
 }
 
 function renderU(list) {
@@ -1369,13 +1398,14 @@ function switchCampus(idx) {
     : `${_currentUni.name_th} ${campus.name}`;
   const mapQ = encodeURIComponent(mapQuery);
 
-  document.getElementById('modal-map').innerHTML =
-    `<iframe src="https://maps.google.com/maps?q=${mapQ}&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy"></iframe>`;
+  const mapDiv = document.getElementById('modal-map');
+  mapDiv.innerHTML = '<div class="map-placeholder" style="height:200px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px">แผนที่กำลังโหลด...</div>';
+  _lazyLoadMap(mapDiv, mapQ);
   document.getElementById('modal-map-link').href =
     `https://www.google.com/maps/search/?api=1&query=${mapQ}`;
   document.getElementById('modal-cover').innerHTML =
     `<div style="width:100%;height:200px;overflow:hidden;position:relative;background:var(--surface2);border-radius:14px 14px 0 0;">
-      <img src="views/${_currentUni.university_id}_${campus.name}.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"
+      <img fetchpriority="high" decoding="async" src="views/${_currentUni.university_id}_${campus.name}.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"
         onerror="this.style.display='none'">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.05) 0%,var(--surface) 100%)"></div>
     </div>`;
@@ -1401,7 +1431,7 @@ function renderModalContent(u, campus) {
 
   document.getElementById('modal-cover').innerHTML =
     `<div style="width:100%;height:200px;overflow:hidden;position:relative;background:var(--surface2);border-radius:14px 14px 0 0;">
-      <img src="views/${u.university_id}_${campus.name}.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"
+      <img fetchpriority="high" decoding="async" src="views/${u.university_id}_${campus.name}.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"
         onerror="this.style.display='none'">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.05) 0%,var(--surface) 100%)"></div>
     </div>`;
@@ -1423,10 +1453,41 @@ function renderModalContent(u, campus) {
 
   document.getElementById('modal-desc').textContent = campus.desc;
 
-  document.getElementById('modal-map').innerHTML =
-    `<iframe src="https://maps.google.com/maps?q=${mapQ}&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy"></iframe>`;
+  // lazy-load map only when visible in modal scroll
+  const mapDiv = document.getElementById('modal-map');
+  const mapQ2 = mapQ; // capture for closure
+  mapDiv.innerHTML = '<div class="map-placeholder" style="height:200px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px">แผนที่กำลังโหลด...</div>';
+  _lazyLoadMap(mapDiv, mapQ2);
   document.getElementById('modal-map-link').href =
     `https://www.google.com/maps/search/?api=1&query=${mapQ}`;
+}
+
+// ===== LAZY MAP LOADER =====
+let _mapObserver = null;
+function _lazyLoadMap(mapDiv, mapQ) {
+  // disconnect previous observer if any
+  if (_mapObserver) _mapObserver.disconnect();
+
+  _mapObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        mapDiv.innerHTML = `<iframe src="https://maps.google.com/maps?q=${mapQ}&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy"></iframe>`;
+        _mapObserver.disconnect();
+        _mapObserver = null;
+      }
+    });
+  }, { root: mapDiv.closest('.modal-body') || null, threshold: 0.1 });
+
+  _mapObserver.observe(mapDiv);
+
+  // fallback: load after 2s even if not scrolled into view
+  setTimeout(() => {
+    if (_mapObserver) {
+      mapDiv.innerHTML = `<iframe src="https://maps.google.com/maps?q=${mapQ}&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy"></iframe>`;
+      _mapObserver.disconnect();
+      _mapObserver = null;
+    }
+  }, 2000);
 }
 
 function closeModal(e) {

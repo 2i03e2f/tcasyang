@@ -450,10 +450,13 @@ nav a.active { color: var(--text); background: rgba(255, 255, 255, 0.06); }
 
 /* ===== HERO ===== */
 .hero {
-  padding:    64px 24px 48px;
-  max-width:  760px;
-  margin:     0 auto;
-  position:   relative;
+  padding:         64px 24px 48px;
+  max-width:       760px;
+  margin:          0 auto;
+  position:        relative;
+  will-change:     transform;
+  transform-style: preserve-3d;
+  transition:      transform 0.05s linear;
 }
 
 .hero::before {
