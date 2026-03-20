@@ -1223,6 +1223,18 @@ footer {
 }
 footer a { color: var(--muted2); text-decoration: none; }
 
+/* blur everything behind modal except navbar */
+body.modal-open > *:not(.modal-overlay):not(.nav-wrapper) {
+  filter: blur(6px);
+  pointer-events: none;
+}
+body.modal-open > .modal-overlay,
+body.modal-open > .nav-wrapper {
+  filter: none;
+  pointer-events: auto;
+}
+body.modal-open { overflow: hidden; }
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 645px) {
   .calc-wrap   { grid-template-columns: 1fr; }

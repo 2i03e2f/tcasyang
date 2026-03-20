@@ -1228,7 +1228,7 @@ function openResultModal(p) {
   }
 
   document.getElementById('result-modal-overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.classList.add('modal-open');
   if (window.lucide) lucide.createIcons();
 }
 
@@ -1241,7 +1241,7 @@ function closeResultModalDirect() {
     resultModalBody.scrollTop = 0;
   }
   document.getElementById('result-modal-overlay').classList.remove('open');
-  document.body.style.overflow = '';
+  document.body.classList.remove('modal-open');
 }
 
 // ===== UNIVERSITIES =====
@@ -1313,7 +1313,7 @@ function openModal(idx) {
   renderCampusSidebar(u, 0);
   renderModalContent(u, firstCampus);
   document.getElementById('modal-overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.classList.add('modal-open');
   if (window.lucide) lucide.createIcons();
 }
 
@@ -1500,7 +1500,7 @@ function closeModalDirect() {
     modalBody.scrollTop = 0;
   }
   document.getElementById('modal-overlay').classList.remove('open');
-  document.body.style.overflow = '';
+  document.body.classList.remove('modal-open');
 }
 
 document.addEventListener('keydown', e => {
