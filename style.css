@@ -3,24 +3,24 @@
 
 /* ===== ROOT ===== */
 :root {
-  --bg:       #060608;
-  --bg2:      #0a0a0d;
-  --surface:  #0e0e12;
-  --surface2: #131318;
-  --border:   rgba(255, 255, 255, 0.07);
-  --border2:  rgba(255, 255, 255, 0.13);
-  --text:     #f0f0f5;
-  --muted:    #6a6a7e;
-  --muted2:   #9a9ab0;
-  --accent:   #d4d4d8;
+  --bg:       #09090b;
+  --bg2:      #0f0f11;
+  --surface:  #141416;
+  --surface2: #1c1c1f;
+  --border:   rgba(255, 255, 255, 0.06);
+  --border2:  rgba(255, 255, 255, 0.12);
+  --text:     #ededf0;
+  --muted:    #5c5c66;
+  --muted2:   #8c8c99;
+  --accent:   #c8c8d0;
   --green:    #3ddc84;
   --red:      #e05555;
   --gold:     #e8a820;
-  --hl:       rgba(255, 255, 255, 0.06);
-  --hl2:      rgba(255, 255, 255, 0.10);
-  --nav-bg:   rgba(14, 14, 18, 0.75);
-  --panel-bg: rgba(14, 14, 18, 0.97);
-  --shadow:   rgba(0,0,0,0.5);
+  --hl:       rgba(255, 255, 255, 0.05);
+  --hl2:      rgba(255, 255, 255, 0.09);
+  --nav-bg:   rgba(12, 12, 14, 0.75);
+  --panel-bg: rgba(12, 12, 14, 0.97);
+  --shadow:   rgba(0,0,0,0.55);
 }
 
 /* ===== RESET ===== */
@@ -70,14 +70,23 @@ nav {
   gap:             4px;
   padding:         0 6px 0 16px;
   height:          52px;
+  background:      transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border:          1px solid transparent;
+  border-radius:   16px;
+  box-shadow:      none;
+  width:           100%;
+  max-width:       860px;
+  transition:      background 0.35s, border-color 0.35s, box-shadow 0.35s, backdrop-filter 0.35s;
+}
+
+nav.scrolled {
   background:      var(--nav-bg);
   backdrop-filter: blur(24px) saturate(1.8);
   -webkit-backdrop-filter: blur(24px) saturate(1.8);
-  border:          1px solid var(--border);
-  border-radius:   16px;
+  border-color:    var(--border);
   box-shadow:      0 4px 32px var(--shadow);
-  width:           100%;
-  max-width:       860px;
 }
 
 /* hamburger */
@@ -476,7 +485,7 @@ nav a.active { color: var(--text); background: rgba(255, 255, 255, 0.06); }
   left:     -100px;
   width:    500px;
   height:   500px;
-  background: radial-gradient(ellipse, rgba(59,142,240,0.07) 0%, transparent 65%);
+  background: radial-gradient(ellipse, rgba(255,255,255,0.03) 0%, transparent 65%);
   pointer-events: none;
   z-index:  0;
 }

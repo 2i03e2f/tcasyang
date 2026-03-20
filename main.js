@@ -279,6 +279,12 @@ document.addEventListener('click', () => {
 // ===== NAV =====
 const navLinks = document.querySelectorAll('nav a');
 const pages    = ['home', 'rounds', 'calc', 'unis'];
+const navEl    = document.querySelector('nav');
+
+// toggle glass effect on scroll
+window.addEventListener('scroll', () => {
+  navEl.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
 
 function go(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
