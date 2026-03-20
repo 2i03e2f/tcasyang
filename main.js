@@ -280,10 +280,22 @@ document.addEventListener('click', () => {
 const navLinks = document.querySelectorAll('nav a');
 const pages    = ['home', 'rounds', 'calc', 'unis'];
 const navEl    = document.querySelector('nav');
+const navWrap  = document.querySelector('.nav-wrapper');
+let _navScrolled = false;
 
-// toggle glass effect on scroll
+// toggle glass effect on scroll with hysteresis
 window.addEventListener('scroll', () => {
-  navEl.classList.toggle('scrolled', window.scrollY > 40);
+  const y = window.scrollY;
+  // scroll down: activate at 40px, scroll up: deactivate at 10px
+  if (!_navScrolled && y > 40) {
+    _navScrolled = true;
+    navEl.classList.add('scrolled');
+    navWrap.classList.add('scrolled');
+  } else if (_navScrolled && y < 10) {
+    _navScrolled = false;
+    navEl.classList.remove('scrolled');
+    navWrap.classList.remove('scrolled');
+  }
 }, { passive: true });
 
 function go(id) {

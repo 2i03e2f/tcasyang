@@ -79,7 +79,7 @@
   <div class="hero">
     <div class="badge"><div class="badge-dot"></div>ปีการศึกษา 2569</div>
     <h1>ระบบคำนวณ<br/><span class="hl">เข้ามหาวิทยาลัย</span><br/>TCAS69</h1>
-    <p class="hero-sub">Websiteช่วยคำนวณคะแนน TCAS พร้อมแนะนำคณะที่สามารถสมัครได้</p>
+    <p class="hero-sub">เว็บไซต์ช่วยคำนวณคะแนน TCAS พร้อมกับแนะนำคณะที่สามารถยื่นได้ และ feature เช็คเกณฑ์ต่างๆ</p>
     <div class="cta">
       <button class="btn-p" onclick="go('calc')">คำนวณคะแนน →</button>
       <button class="btn-s" onclick="go('rounds')">ดูรอบรับสมัคร & วิชา</button>
@@ -130,7 +130,7 @@
   <div class="sec">
     <div class="sec-tag">การสอบ</div>
     <div class="sec-title">ประเภทข้อสอบ TCAS69</div>
-    <div class="sec-sub">รู้จักการสอบแต่ละประเภทก่อนเตรียมตัว</div>
+    <div class="sec-sub">รู้จักการสอบแต่ละประเภทว่ามีอะไรบ้าง</div>
     <div class="exams">
       <div class="ecard" data-type="tgat">
         <div class="ebadge">TGAT</div>
@@ -439,7 +439,7 @@
                 <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">เกณฑ์</div>
                 <div class="toggle-group" id="of-changed-group">
                   <button class="tgl-btn active" data-val="" onclick="setToggle('of-changed-group',this,'');applyFilters()">ทั้งหมด</button>
-                  <button class="tgl-btn" data-val="changed" onclick="setToggle('of-changed-group',this,'changed');applyFilters()">⚠ เปลี่ยน</button>
+                  <button class="tgl-btn" data-val="changed" onclick="setToggle('of-changed-group',this,'changed');applyFilters()"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg> เปลี่ยน</button>
                   <button class="tgl-btn" data-val="same" onclick="setToggle('of-changed-group',this,'same');applyFilters()">เหมือนเดิม</button>
                 </div>
                 <input type="hidden" id="of-changed" value="">
@@ -538,7 +538,7 @@
         <div id="rm-ly-criteria" style="font-size:12px;color:var(--muted2);line-height:1.8"></div>
         <div id="rm-ly-stats" style="margin-top:8px;font-size:12px;color:var(--muted2)"></div>
         <div id="rm-warn" style="display:none;margin-top:8px;padding:8px 12px;background:rgba(232,168,32,0.1);border:1px solid rgba(232,168,32,0.3);border-radius:7px;font-size:12px;color:#e8a820">
-          ⚠️ เกณฑ์ปีนี้แตกต่างจากปีที่แล้ว โปรดตรวจสอบก่อนสมัคร
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg> เกณฑ์ปีนี้แตกต่างจากปีที่แล้ว โปรดตรวจสอบก่อนสมัคร
         </div>
       </div>
 
