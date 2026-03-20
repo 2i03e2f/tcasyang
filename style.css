@@ -808,12 +808,12 @@ h1 .hl { color: var(--muted2); }
 .ctab:active { transform: translateY(0) scale(0.98); }
 
 .ctab.active {
-  border-color:  var(--green);
+  border-color:  var(--text);
   color:         var(--text);
   background:    var(--surface2);
-  box-shadow:    0 0 0 1px var(--green), 0 4px 16px rgba(61,220,132,0.1);
+  box-shadow:    0 0 0 1px var(--text), 0 4px 16px var(--shadow);
 }
-.ctab.active svg { color: var(--green); }
+.ctab.active svg { color: var(--text); }
 
 .calc-sub        { display: none; }
 .calc-sub.active { display: block; }
