@@ -556,7 +556,7 @@ h1 .hl {
 
 .btn-p {
   background:    var(--text);
-  color:         #000;
+  color:         var(--bg);
   border:        none;
   padding:       8px 18px;
   border-radius: 7px;
