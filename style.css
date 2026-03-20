@@ -1223,15 +1223,11 @@ footer {
 }
 footer a { color: var(--muted2); text-decoration: none; }
 
-/* blur everything behind modal except navbar */
-body.modal-open > *:not(.modal-overlay):not(.nav-wrapper):not(.mobile-menu):not(.settings-panel) {
+/* blur content behind modal — only main content and particles */
+body.modal-open #main-content,
+body.modal-open #particle-canvas {
   filter: blur(6px);
   pointer-events: none;
-}
-body.modal-open > .nav-wrapper,
-body.modal-open > .mobile-menu,
-body.modal-open > .settings-panel {
-  filter: none !important;
 }
 body.modal-open { overflow: hidden; }
 
