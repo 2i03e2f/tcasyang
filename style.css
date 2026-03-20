@@ -36,6 +36,13 @@ body {
   flex-direction: column;
 }
 
+/* ===== MAIN CONTENT ===== */
+#main-content {
+  flex:            1;
+  display:         flex;
+  flex-direction:  column;
+}
+
 /* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar              { width: 5px; }
 ::-webkit-scrollbar-track        { background: var(--bg); }
@@ -46,7 +53,7 @@ body {
   position:        fixed;
   top:             14px;
   left:            0; right: 0;
-  z-index:         200;
+  z-index:         600;
   display:         flex;
   justify-content: center;
   padding:         0 20px;
@@ -103,7 +110,7 @@ nav {
   position:        fixed;
   top:             80px;
   left:            20px; right: 20px;
-  z-index:         199;
+  z-index:         599;
   background:      var(--panel-bg);
   backdrop-filter: blur(20px);
   border:          1px solid var(--border);
@@ -162,7 +169,7 @@ nav {
   position:        fixed;
   top:             74px;
   right:           20px;
-  z-index:         201;
+  z-index:         601;
   width:           260px;
   background:      var(--panel-bg);
   backdrop-filter: blur(24px) saturate(1.8);
