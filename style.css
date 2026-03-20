@@ -1111,7 +1111,7 @@ select.sinput {
 .modal-overlay {
   position:        fixed;
   inset:           0;
-  background:      rgba(0, 0, 0, 0.8);
+  background:      rgba(0, 0, 0, 0.85);
   z-index:         500;
   display:         none;
   align-items:     center;
@@ -1119,7 +1119,8 @@ select.sinput {
   padding:         16px;
   /* Leave room for the fixed navbar so modal content doesn't sit underneath it */
   padding-top:     max(82px, calc(env(safe-area-inset-top) + 82px));
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   overflow-y:      hidden; /* modal handles scrolling internally */
 }
 .modal-overlay.open { display: flex; }
