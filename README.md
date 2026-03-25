@@ -8,8 +8,8 @@ Page: https://2i03e2f.github.io/tcasyang/
   - Eligibility Checker
   Input your scores and instantly see which programs across 80+ universities you qualify for. The system compares your scores against official Round 3 (Admission) criteria for 6,900+ programs.
     - 6 search modes - filter by university, faculty, program, or just check which subjects you have
-    - Last year comparison — shows 2568 min/max scores and your estimated chance of admission
-    - Changed criteria alerts — flags programs where this year's criteria differ from last year
+    - Last year comparison - shows 2568 min/max scores and your estimated chance of admission
+    - Changed criteria alerts - flags programs where this year's criteria differ from last year
   - University Directory
   Browse 89 universities with campus info, maps, photos, and details.
 
@@ -29,7 +29,7 @@ Page: https://2i03e2f.github.io/tcasyang/
 
 DISCLAIMER
 
-This is an unofficial tool for educational purposes. Always verify admission criteria on mytcas.com. Scores, criteria, and program availability may change — use this as a reference, not a guarantee.
+This is an unofficial tool for educational purposes. Always verify admission criteria on mytcas.com. Scores, criteria, and program availability may change -use this as a reference, not a guarantee.
 
 
 License
