@@ -417,6 +417,8 @@ function saveScores() {
     const el = document.getElementById('s-' + k);
     if (el) savedScores[k] = parseFloat(el.value) || 0;
   });
+  // persist to localStorage
+  lsSaveScores();
 }
 
 function hasAnyScore() {
