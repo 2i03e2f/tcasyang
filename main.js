@@ -348,6 +348,36 @@ const scoreMax = {
 
 let savedScores = {};
 
+// ===== LOCALSTORAGE SCORE PERSISTENCE =====
+const LS_KEY = 'tcasyang_scores';
+
+function lsLoadScores() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch { return {}; }
+}
+
+function lsSaveScores() {
+  const scores = {};
+  scoreKeys.forEach(k => {
+    const el = document.getElementById('s-' + k);
+    if (el && el.value !== '') scores[k] = el.value;
+  });
+  try { localStorage.setItem(LS_KEY, JSON.stringify(scores)); } catch {}
+}
+
+function lsRestoreScores() {
+  const saved = lsLoadScores();
+  scoreKeys.forEach(k => {
+    const el = document.getElementById('s-' + k);
+    if (el && saved[k] !== undefined) el.value = saved[k];
+  });
+  // update labels
+  scoreKeys.forEach(k => lbl(k, document.getElementById('s-' + k)?.value || ''));
+  checkImportBtn();
+}
+
 // clamp score input: no negative, max 100 (or 4 for gpax), 2 decimal places
 function clampScore(input) {
   let v = parseFloat(input.value);
@@ -366,11 +396,15 @@ document.addEventListener('DOMContentLoaded', () => {
     input.addEventListener('keydown', e => {
       if (e.key === '-' || e.key === 'e' || e.key === 'E') e.preventDefault();
     });
-    // clamp on blur (when user leaves field)
-    input.addEventListener('blur', () => clampScore(input));
-    // also set step for 2 decimals
+    // clamp + save on blur
+    input.addEventListener('blur', () => {
+      clampScore(input);
+      lsSaveScores();
+    });
     if (!input.step || input.step === 'any') input.step = '0.01';
   });
+  // restore saved scores
+  lsRestoreScores();
 });
 
 function lbl(k, v) {

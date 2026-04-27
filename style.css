@@ -1518,14 +1518,35 @@ body.modal-open { overflow: hidden; }
   grid-template-columns: 1fr 1fr;
   gap:                   12px;
   align-items:           start;
+  height:                calc(100vh - 160px);
 }
 
-.check-left  { position: sticky; top: 80px; }
-.check-right { min-width: 0; }
+.check-left {
+  height:     100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--surface2) transparent;
+}
+.check-left::-webkit-scrollbar       { width: 4px; }
+.check-left::-webkit-scrollbar-track { background: transparent; }
+.check-left::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 99px; }
+
+.check-right {
+  min-width:  0;
+  height:     100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--surface2) transparent;
+}
+.check-right::-webkit-scrollbar       { width: 4px; }
+.check-right::-webkit-scrollbar-track { background: transparent; }
+.check-right::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 99px; }
 
 @media (max-width: 900px) {
-  .check-layout { grid-template-columns: 1fr; }
-  .check-left   { position: static; }
+  .check-layout { grid-template-columns: 1fr; height: auto; }
+  .check-left, .check-right { height: auto; overflow: visible; }
 }
 
 /* ===== MODE BUTTONS ===== */
