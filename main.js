@@ -1011,29 +1011,35 @@ function populateSelect(id, options, defaultLabel) {
 }
 
 // ===== SORT =====
-let _currentSort = 'default';
+let _sortDist = 'none'; // none | near | far
+let _sortPct  = 'none'; // none | pct-desc | pct-asc
 let _userLat = null, _userLng = null;
 
-function setSort(mode) {
-  _currentSort = mode;
-  document.querySelectorAll('.sort-btn').forEach(b => b.classList.toggle('active', b.dataset.sort === mode));
+function setSort(group, mode) {
+  if (group === 'dist') _sortDist = mode;
+  if (group === 'pct')  _sortPct  = mode;
 
-  if ((mode === 'near' || mode === 'far') && _userLat === null) {
+  // update active buttons per group
+  document.querySelectorAll(`.sort-btn[data-group="${group}"]`).forEach(b =>
+    b.classList.toggle('active', b.dataset.sort === mode));
+
+  if ((_sortDist === 'near' || _sortDist === 'far') && _userLat === null) {
     navigator.geolocation.getCurrentPosition(pos => {
       _userLat = pos.coords.latitude;
       _userLng = pos.coords.longitude;
       renderPage(1, _sortData(_filteredCache));
     }, () => {
       alert('ไม่สามารถเข้าถึงตำแหน่งของคุณได้ กรุณาอนุญาตการเข้าถึง Location');
-      _currentSort = 'default';
-      document.querySelectorAll('.sort-btn').forEach(b => b.classList.toggle('active', b.dataset.sort === 'default'));
+      _sortDist = 'none';
+      document.querySelectorAll('.sort-btn[data-group="dist"]').forEach(b =>
+        b.classList.toggle('active', b.dataset.sort === 'none'));
     });
     return;
   }
   renderPage(1, _sortData(_filteredCache));
 }
 
-function _getProgLat(r) {
+function _getProgLatLng(r) {
   if (!allU || !allU.length) return null;
   const uni = allU.find(u => u.university_id === r.university_id);
   if (!uni || !uni.campuses) return null;
@@ -1050,19 +1056,25 @@ function _haversine(lat1, lng1, lat2, lng2) {
 }
 
 function _sortData(data) {
-  const arr = [...data];
-  if (_currentSort === 'pct-desc') {
-    arr.sort((a, b) => (b.chance ?? -1) - (a.chance ?? -1));
-  } else if (_currentSort === 'pct-asc') {
-    arr.sort((a, b) => (a.chance ?? 999) - (b.chance ?? 999));
-  } else if ((_currentSort === 'near' || _currentSort === 'far') && _userLat !== null) {
+  let arr = [...data];
+
+  // 1. sort by distance first (if set)
+  if ((_sortDist === 'near' || _sortDist === 'far') && _userLat !== null) {
     arr.sort((a, b) => {
-      const pa = _getProgLat(a), pb = _getProgLat(b);
+      const pa = _getProgLatLng(a), pb = _getProgLatLng(b);
       const da = pa ? _haversine(_userLat, _userLng, pa.lat, pa.lng) : 99999;
       const db = pb ? _haversine(_userLat, _userLng, pb.lat, pb.lng) : 99999;
-      return _currentSort === 'near' ? da - db : db - da;
+      return _sortDist === 'near' ? da - db : db - da;
     });
   }
+
+  // 2. then sort by pct (stable secondary sort)
+  if (_sortPct === 'pct-desc') {
+    arr.sort((a, b) => (b.chance ?? -1) - (a.chance ?? -1));
+  } else if (_sortPct === 'pct-asc') {
+    arr.sort((a, b) => (a.chance ?? 999) - (b.chance ?? 999));
+  }
+
   return arr;
 }
 

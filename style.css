@@ -1733,6 +1733,7 @@ body.modal-open { overflow: hidden; }
   color:         var(--text);
 }
 
+<<<<<<< HEAD
 /* ===== SORT BAR ===== */
 .sort-btn {
   background:    var(--surface);
@@ -1750,6 +1751,8 @@ body.modal-open { overflow: hidden; }
 .sort-btn:hover  { border-color: var(--border2); color: var(--muted2); }
 .sort-btn.active { background: var(--surface2); border-color: var(--text); color: var(--text); }
 
+=======
+>>>>>>> f2c1538fb55725683aa30327e837a9094b504159
 /* ===== CUSTOM CHECKBOX ===== */
 .chk-item {
   display:       flex;
