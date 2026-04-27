@@ -369,13 +369,15 @@ function lsSaveScores() {
 
 function lsRestoreScores() {
   const saved = lsLoadScores();
+  if (!Object.keys(saved).length) return;
   scoreKeys.forEach(k => {
     const el = document.getElementById('s-' + k);
-    if (el && saved[k] !== undefined) el.value = saved[k];
+    if (el && saved[k] !== undefined) {
+      el.value = saved[k];
+      // fire oninput to update labels + savedScores
+      el.dispatchEvent(new Event('input'));
+    }
   });
-  // update labels
-  scoreKeys.forEach(k => lbl(k, document.getElementById('s-' + k)?.value || ''));
-  checkImportBtn();
 }
 
 // clamp score input: no negative, max 100 (or 4 for gpax), 2 decimal places
