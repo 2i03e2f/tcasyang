@@ -316,6 +316,7 @@ function switchTab(id, btn) {
   document.getElementById('tab-' + id).classList.add('active');
   btn.classList.add('active');
   if (id === 'check') checkImportBtn();
+  if (id === 'manual') document.getElementById('sort-bar').style.display = 'none';
 }
 
 // ===== SCORE KEYS =====
@@ -372,12 +373,14 @@ function lsRestoreScores() {
   if (!Object.keys(saved).length) return;
   scoreKeys.forEach(k => {
     const el = document.getElementById('s-' + k);
-    if (el && saved[k] !== undefined) {
+    if (el && saved[k] !== undefined && saved[k] !== '') {
       el.value = saved[k];
-      // fire oninput to update labels + savedScores
-      el.dispatchEvent(new Event('input'));
+      lbl(k, saved[k]);
+      if (window.savedScores) savedScores[k] = parseFloat(saved[k]) || 0;
     }
   });
+  if (typeof renderWeights === 'function') renderWeights();
+  if (typeof checkImportBtn === 'function') checkImportBtn();
 }
 
 // clamp score input: no negative, max 100 (or 4 for gpax), 2 decimal places
@@ -394,19 +397,17 @@ function clampScore(input) {
 // attach validation to all score inputs on page load
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.sinput').forEach(input => {
-    // prevent typing negative sign
     input.addEventListener('keydown', e => {
       if (e.key === '-' || e.key === 'e' || e.key === 'E') e.preventDefault();
     });
-    // clamp + save on blur
     input.addEventListener('blur', () => {
       clampScore(input);
       lsSaveScores();
     });
     if (!input.step || input.step === 'any') input.step = '0.01';
   });
-  // restore saved scores
-  lsRestoreScores();
+  // restore after slight delay so all JS is ready
+  setTimeout(lsRestoreScores, 0);
 });
 
 function lbl(k, v) {
