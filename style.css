@@ -1733,26 +1733,49 @@ body.modal-open { overflow: hidden; }
   color:         var(--text);
 }
 
-<<<<<<< HEAD
 /* ===== SORT BAR ===== */
-.sort-btn {
+.sort-row {
+  display:     flex;
+  align-items: center;
+  gap:         10px;
+}
+.sort-label {
+  font-size:   11px;
+  color:       var(--muted);
+  flex-shrink: 0;
+  width:       54px;
+}
+.sort-segment {
+  display:       flex;
   background:    var(--surface);
   border:        1px solid var(--border);
-  border-radius: 20px;
-  color:         var(--muted);
-  font-size:     12px;
-  font-weight:   500;
-  padding:       5px 12px;
-  cursor:        pointer;
-  transition:    all 0.15s;
-  font-family:   inherit;
-  white-space:   nowrap;
+  border-radius: 10px;
+  overflow:      hidden;
+  gap:           1px;
 }
-.sort-btn:hover  { border-color: var(--border2); color: var(--muted2); }
-.sort-btn.active { background: var(--surface2); border-color: var(--text); color: var(--text); }
+.sort-seg {
+  display:     flex;
+  align-items: center;
+  gap:         5px;
+  background:  transparent;
+  border:      none;
+  color:       var(--muted);
+  font-size:   12px;
+  font-weight: 500;
+  padding:     6px 12px;
+  cursor:      pointer;
+  transition:  all 0.15s;
+  font-family: inherit;
+  white-space: nowrap;
+  user-select: none;
+}
+.sort-seg:hover { color: var(--muted2); background: var(--hl); }
+.sort-seg.active {
+  background:  var(--surface2);
+  color:       var(--text);
+  font-weight: 600;
+}
 
-=======
->>>>>>> f2c1538fb55725683aa30327e837a9094b504159
 /* ===== CUSTOM CHECKBOX ===== */
 .chk-item {
   display:       flex;

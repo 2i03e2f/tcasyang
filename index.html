@@ -458,18 +458,34 @@
           </div>
 
           <!-- SORT BAR -->
-          <div id="sort-bar" style="display:none;flex-direction:column;gap:8px;margin-bottom:12px">
-            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-              <span style="font-size:11px;color:var(--muted);flex-shrink:0;width:52px">ระยะทาง</span>
-              <button class="sort-btn active" data-group="dist" data-sort="none"  onclick="setSort('dist','none')">ทั้งหมด</button>
-              <button class="sort-btn"        data-group="dist" data-sort="near"  onclick="setSort('dist','near')">ใกล้ฉัน</button>
-              <button class="sort-btn"        data-group="dist" data-sort="far"   onclick="setSort('dist','far')">ไกลฉัน</button>
+          <div id="sort-bar" style="display:none;flex-direction:column;gap:6px;margin-bottom:14px">
+            <div class="sort-row">
+              <span class="sort-label">
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>ที่ตั้ง
+              </span>
+              <div class="sort-segment">
+                <button class="sort-seg active" data-group="dist" data-sort="none"  onclick="setSort('dist','none')">ทั้งหมด</button>
+                <button class="sort-seg"        data-group="dist" data-sort="near"  onclick="setSort('dist','near')">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="8 12 12 8 16 12"/><line x1="12" x2="12" y1="16" y2="8"/></svg>ใกล้ฉัน
+                </button>
+                <button class="sort-seg"        data-group="dist" data-sort="far"   onclick="setSort('dist','far')">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="8 12 12 16 16 12"/><line x1="12" x2="12" y1="8" y2="16"/></svg>ไกลฉัน
+                </button>
+              </div>
             </div>
-            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-              <span style="font-size:11px;color:var(--muted);flex-shrink:0;width:52px">โอกาส %</span>
-              <button class="sort-btn active" data-group="pct" data-sort="none"     onclick="setSort('pct','none')">ไม่เรียง</button>
-              <button class="sort-btn"        data-group="pct" data-sort="pct-desc" onclick="setSort('pct','pct-desc')">มาก → น้อย</button>
-              <button class="sort-btn"        data-group="pct" data-sort="pct-asc"  onclick="setSort('pct','pct-asc')">น้อย → มาก</button>
+            <div class="sort-row">
+              <span class="sort-label">
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>โอกาส
+              </span>
+              <div class="sort-segment">
+                <button class="sort-seg active" data-group="pct" data-sort="none"     onclick="setSort('pct','none')">ไม่เรียง</button>
+                <button class="sort-seg"        data-group="pct" data-sort="pct-desc" onclick="setSort('pct','pct-desc')">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="20" y2="4"/><polyline points="6 10 12 4 18 10"/></svg>มาก → น้อย
+                </button>
+                <button class="sort-seg"        data-group="pct" data-sort="pct-asc"  onclick="setSort('pct','pct-asc')">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="4" y2="20"/><polyline points="18 14 12 20 6 14"/></svg>น้อย → มาก
+                </button>
+              </div>
             </div>
           </div>
 

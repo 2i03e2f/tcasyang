@@ -1020,7 +1020,7 @@ function setSort(group, mode) {
   if (group === 'pct')  _sortPct  = mode;
 
   // update active buttons per group
-  document.querySelectorAll(`.sort-btn[data-group="${group}"]`).forEach(b =>
+  document.querySelectorAll(`.sort-seg[data-group="${group}"]`).forEach(b =>
     b.classList.toggle('active', b.dataset.sort === mode));
 
   if ((_sortDist === 'near' || _sortDist === 'far') && _userLat === null) {
@@ -1031,7 +1031,7 @@ function setSort(group, mode) {
     }, () => {
       alert('ไม่สามารถเข้าถึงตำแหน่งของคุณได้ กรุณาอนุญาตการเข้าถึง Location');
       _sortDist = 'none';
-      document.querySelectorAll('.sort-btn[data-group="dist"]').forEach(b =>
+      document.querySelectorAll('.sort-seg[data-group="dist"]').forEach(b =>
         b.classList.toggle('active', b.dataset.sort === 'none'));
     });
     return;
